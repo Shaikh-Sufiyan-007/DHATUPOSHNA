@@ -1,0 +1,40 @@
+{
+  "name": "dhatuposhna-backend",
+  "version": "1.0.0",
+  "description": "Production-ready Ayurvedic Dhatu Knowledge & Information Platform Backend",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "seed": "node src/seeds/seed.js",
+    "seed:clear": "node src/seeds/seed.js --clear",
+    "test": "node src/tests/test-api.js"
+  },
+  "keywords": [
+    "ayurveda",
+    "dhatu",
+    "dhatuposhana",
+    "dhatvagni",
+    "nodejs",
+    "express",
+    "mongodb",
+    "mongoose",
+    "esm"
+  ],
+  "author": "Ayurvedic Knowledge Platform Team",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0",
+    "mongoose": "^8.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
