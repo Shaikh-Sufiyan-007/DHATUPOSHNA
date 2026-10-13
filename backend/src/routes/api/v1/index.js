@@ -12,12 +12,14 @@ import glossaryRoutes from './glossary.routes.js';
 import quizRoutes from './quiz.routes.js';
 import revisionRoutes from './revision.routes.js';
 import searchRoutes from './search.routes.js';
+import authRoutes from './auth.routes.js';
 
 const router = express.Router();
 
+router.use('/auth', authRoutes);
+
 router.use(enforceReadOnly);
 
-// Mount resources
 router.use('/health', healthRoutes);
 router.use('/dhatus', dhatuRoutes);
 router.use('/references', referenceRoutes);

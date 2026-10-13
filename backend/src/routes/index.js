@@ -27,7 +27,8 @@ router.get('/', (req, res) => {
       quizzes: '/api/v1/quizzes',
       references: '/api/v1/references',
       search: '/api/v1/search',
-      revision: '/api/v1/revision'
+      revision: '/api/v1/revision',
+      auth: '/api/v1/auth'
     }
   });
 });
