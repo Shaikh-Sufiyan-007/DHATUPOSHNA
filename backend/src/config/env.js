@@ -25,10 +25,13 @@ export const config = Object.freeze({
       maxPoolSize: 10                                   // Maintain up to 10 socket connections
     }
   },
-  apiPrefix: process.env.API_PREFIX || '/api/v1'
+  apiPrefix: process.env.API_PREFIX || '/api/v1',
+  jwt: {
+    secret: process.env.JWT_SECRET || 'dhatuposhna-jwt-secret-key-2026',
+    expiresIn: process.env.JWT_EXPIRES_IN || '7d'
+  }
 });
 
-// Basic validation for critical configuration
 if (!config.mongodb.uri) {
   throw new Error('CRITICAL: MONGODB_URI environment variable is not defined.');
 }

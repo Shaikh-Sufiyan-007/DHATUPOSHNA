@@ -8,4 +8,5 @@ export * from './nyaya.model.js';
 export * from './concept.model.js';
 export * from './glossary.model.js';
 export * from './quiz.model.js';
+export * from './user.model.js';
 export * from './common/verification.schema.js';
