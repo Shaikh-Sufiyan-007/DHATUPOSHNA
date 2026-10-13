@@ -5,7 +5,7 @@ export const DHATU_MAPPINGS = [
     sequence: 1,
     name: 'Rasa',
     sanskritName: 'रस',
-    uiColor: '#38bdf8', // Luminous Aqua / Fluid
+    uiColor: '#38bdf8',
     glowColor: 'rgba(56, 189, 248, 0.4)',
     educationalFocus: 'Cardiovascular Plasma & Lymphatic Nexus (Hridaya & Thoracic Duct)',
     cameraTarget: [0, 1.25, 0.04],
@@ -17,7 +17,7 @@ export const DHATU_MAPPINGS = [
     sequence: 2,
     name: 'Rakta',
     sanskritName: 'रक्त',
-    uiColor: '#ef4444', // Crimson Blood Red
+    uiColor: '#ef4444',
     glowColor: 'rgba(239, 68, 68, 0.4)',
     educationalFocus: 'Vascular Network & Hemoglobin Conduits (Yakrit, Pleeha & Arterial Tree)',
     cameraTarget: [0, 1.15, 0.02],
@@ -29,7 +29,7 @@ export const DHATU_MAPPINGS = [
     sequence: 3,
     name: 'Mamsa',
     sanskritName: 'मांस',
-    uiColor: '#f97316', // Amber / Ochre Muscle Tone
+    uiColor: '#f97316',
     glowColor: 'rgba(249, 115, 22, 0.4)',
     educationalFocus: 'Musculoskeletal Mantle & Structural Form (Pectorals, Core & Limbs)',
     cameraTarget: [0, 1.1, 0.05],
@@ -41,7 +41,7 @@ export const DHATU_MAPPINGS = [
     sequence: 4,
     name: 'Meda',
     sanskritName: 'मेद',
-    uiColor: '#eab308', // Golden Lipid
+    uiColor: '#eab308',
     glowColor: 'rgba(234, 179, 8, 0.4)',
     educationalFocus: 'Adipose & Lipid Depots (Greater Omentum & Lumbar Snehana Layers)',
     cameraTarget: [0, 0.98, 0.02],
@@ -53,7 +53,7 @@ export const DHATU_MAPPINGS = [
     sequence: 5,
     name: 'Asthi',
     sanskritName: 'अस्थि',
-    uiColor: '#f1f5f9', // Bone Ivory White
+    uiColor: '#f1f5f9',
     glowColor: 'rgba(241, 245, 249, 0.4)',
     educationalFocus: 'Skeletal Framework & Articulations (Cranium, Spine, Ribcage & Long Bones)',
     cameraTarget: [0, 0.95, 0.0],
@@ -65,7 +65,7 @@ export const DHATU_MAPPINGS = [
     sequence: 6,
     name: 'Majja',
     sanskritName: 'मज्जा',
-    uiColor: '#a855f7', // Royal Violet Neural Glow
+    uiColor: '#a855f7',
     glowColor: 'rgba(168, 85, 247, 0.4)',
     educationalFocus: 'Neural Axis & Medullary Marrow (Sushumna, Brainstem & Medullary Cavities)',
     cameraTarget: [0, 1.35, -0.02],
@@ -77,7 +77,7 @@ export const DHATU_MAPPINGS = [
     sequence: 7,
     name: 'Shukra',
     sanskritName: 'शुक्र',
-    uiColor: '#10b981', // Emerald Vitality Green
+    uiColor: '#10b981',
     glowColor: 'rgba(16, 185, 129, 0.4)',
     educationalFocus: 'Reproductive Locus & Systemic Vitality Essence (Pelvic Core & Ojas Conduits)',
     cameraTarget: [0, 0.73, 0.03],
@@ -85,7 +85,6 @@ export const DHATU_MAPPINGS = [
   },
 ];
 
-// Helper to look up mapping by 3D object name
 export function getMappingByMeshName(meshName) {
   if (!meshName) return null;
   return DHATU_MAPPINGS.find(
@@ -96,7 +95,6 @@ export function getMappingByMeshName(meshName) {
   ) || null;
 }
 
-// Helper to look up mapping by slug
 export function getMappingBySlug(slug) {
   if (!slug) return null;
   return DHATU_MAPPINGS.find((m) => m.dhatuSlug.toLowerCase() === slug.toLowerCase()) || null;

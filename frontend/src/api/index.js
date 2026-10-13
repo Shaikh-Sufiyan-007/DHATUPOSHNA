@@ -9,3 +9,4 @@ export { default as quizApi } from './quizApi.js';
 export { default as referenceApi } from './referenceApi.js';
 export { default as searchApi } from './searchApi.js';
 export { default as revisionApi } from './revisionApi.js';
+export { default as authApi } from './authApi.js';
