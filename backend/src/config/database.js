@@ -10,25 +10,40 @@ const CONNECTION_STATES = {
   3: 'disconnecting'
 };
 
+let listenersAttached = false;
+let cachedPromise = null;
+
 export const connectDB = async () => {
   try {
     if (mongoose.connection.readyState === 1) {
-      logger.info('MongoDB connection already established.');
       return mongoose.connection;
     }
-    mongoose.connection.on('connected', () => {
-      logger.info(`MongoDB connected successfully to: ${mongoose.connection.host}/${mongoose.connection.name}`);
-    });
 
-    mongoose.connection.on('error', (err) => {
-      logger.error('MongoDB connection runtime error:', err.message);
-    });
+    if (!listenersAttached) {
+      mongoose.connection.on('connected', () => {
+        logger.info(`MongoDB connected successfully to: ${mongoose.connection.host}/${mongoose.connection.name}`);
+      });
 
-    mongoose.connection.on('disconnected', () => {
-      logger.warn('MongoDB connection lost. Disconnected from database.');
-    });
+      mongoose.connection.on('error', (err) => {
+        logger.error('MongoDB connection runtime error:', err.message);
+      });
 
-    await mongoose.connect(config.mongodb.uri, config.mongodb.options);
+      mongoose.connection.on('disconnected', () => {
+        logger.warn('MongoDB connection lost. Disconnected from database.');
+      });
+      listenersAttached = true;
+    }
+
+    if (!cachedPromise) {
+      cachedPromise = mongoose.connect(config.mongodb.uri, config.mongodb.options)
+        .then(() => mongoose.connection)
+        .catch((err) => {
+          cachedPromise = null;
+          throw err;
+        });
+    }
+
+    await cachedPromise;
     return mongoose.connection;
   } catch (error) {
     logger.error(`Initial MongoDB connection failed: ${error.message}`);
@@ -41,6 +56,7 @@ export const disconnectDB = async () => {
   try {
     if (mongoose.connection.readyState !== 0) {
       await mongoose.connection.close();
+      cachedPromise = null;
       logger.info('MongoDB connection closed gracefully.');
     }
   } catch (error) {
