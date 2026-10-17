@@ -25,6 +25,7 @@ router.use('/dhatus', dhatuRoutes);
 router.use('/references', referenceRoutes);
 router.use('/dhatvagni', dhatvagniRoutes);
 router.use('/dhatuposhana', dhatuposhanaRoutes);
+router.use('/dhatuposhna', dhatuposhanaRoutes);
 router.use('/concepts', conceptRoutes);
 router.use('/nyayas', nyayaRoutes);
 router.use('/glossary', glossaryRoutes);

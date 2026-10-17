@@ -29,7 +29,7 @@ export const getDhatuposhanaById = asyncHandler(async (req, res) => {
   new ApiResponse(
     HTTP_STATUS.OK,
     item,
-    `${item.name} retrieved successfully`
+    `${item?.name || 'Dhatuposhana concept'} retrieved successfully`
   ).send(res);
 });
 

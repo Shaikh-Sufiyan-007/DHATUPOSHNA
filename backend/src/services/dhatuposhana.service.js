@@ -95,24 +95,30 @@ class DhatuposhanaService {
 
 
   async getDhatuposhanaById(idOrSlugOrDhatu) {
+    if (!idOrSlugOrDhatu) {
+      throw ApiError.badRequest('Identifier or slug is required');
+    }
+
     let item;
+    const searchStr = String(idOrSlugOrDhatu).trim();
+    const escapedStr = searchStr.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
     // 1. Try finding by ObjectId of Dhatuposhana or Dhatu
-    if (mongoose.Types.ObjectId.isValid(idOrSlugOrDhatu)) {
-      item = await Dhatuposhana.findById(idOrSlugOrDhatu)
-        .populate('dhatu', 'name sanskritName order classification westernCorrelation -__v')
-        .populate('previousDhatu', 'name sanskritName order -__v')
-        .populate('nextDhatu', 'name sanskritName order -__v')
+    if (mongoose.Types.ObjectId.isValid(searchStr)) {
+      item = await Dhatuposhana.findById(searchStr)
+        .populate('dhatu', 'name sanskritName order classification westernCorrelation')
+        .populate('previousDhatu', 'name sanskritName order')
+        .populate('nextDhatu', 'name sanskritName order')
         .populate('sourceAcademicLayer.classicalReferences.reference', '-__v')
         .populate('scholarlyInterpretations.reference', '-__v')
         .select('-__v')
         .lean();
 
       if (!item) {
-        item = await Dhatuposhana.findOne({ dhatu: idOrSlugOrDhatu })
-          .populate('dhatu', 'name sanskritName order classification westernCorrelation -__v')
-          .populate('previousDhatu', 'name sanskritName order -__v')
-          .populate('nextDhatu', 'name sanskritName order -__v')
+        item = await Dhatuposhana.findOne({ dhatu: searchStr })
+          .populate('dhatu', 'name sanskritName order classification westernCorrelation')
+          .populate('previousDhatu', 'name sanskritName order')
+          .populate('nextDhatu', 'name sanskritName order')
           .populate('sourceAcademicLayer.classicalReferences.reference', '-__v')
           .populate('scholarlyInterpretations.reference', '-__v')
           .select('-__v')
@@ -121,16 +127,16 @@ class DhatuposhanaService {
     }
 
     // 2. Try finding by Dhatuposhana slug or name
-    if (!item) {
+    if (!item && escapedStr) {
       item = await Dhatuposhana.findOne({
         $or: [
-          { slug: idOrSlugOrDhatu.toLowerCase() },
-          { name: { $regex: new RegExp(`^${idOrSlugOrDhatu}$`, 'i') } }
+          { slug: searchStr.toLowerCase() },
+          { name: { $regex: new RegExp(`^${escapedStr}$`, 'i') } }
         ]
       })
-        .populate('dhatu', 'name sanskritName order classification westernCorrelation -__v')
-        .populate('previousDhatu', 'name sanskritName order -__v')
-        .populate('nextDhatu', 'name sanskritName order -__v')
+        .populate('dhatu', 'name sanskritName order classification westernCorrelation')
+        .populate('previousDhatu', 'name sanskritName order')
+        .populate('nextDhatu', 'name sanskritName order')
         .populate('sourceAcademicLayer.classicalReferences.reference', '-__v')
         .populate('scholarlyInterpretations.reference', '-__v')
         .select('-__v')
@@ -138,19 +144,19 @@ class DhatuposhanaService {
     }
 
     // 3. Try finding by related Dhatu slug or name
-    if (!item) {
+    if (!item && escapedStr) {
       const relatedDhatu = await Dhatu.findOne({
         $or: [
-          { slug: idOrSlugOrDhatu.toLowerCase() },
-          { name: { $regex: new RegExp(`^${idOrSlugOrDhatu}$`, 'i') } }
+          { slug: searchStr.toLowerCase() },
+          { name: { $regex: new RegExp(`^${escapedStr}$`, 'i') } }
         ]
       });
 
       if (relatedDhatu) {
         item = await Dhatuposhana.findOne({ dhatu: relatedDhatu._id })
-          .populate('dhatu', 'name sanskritName order classification westernCorrelation -__v')
-          .populate('previousDhatu', 'name sanskritName order -__v')
-          .populate('nextDhatu', 'name sanskritName order -__v')
+          .populate('dhatu', 'name sanskritName order classification westernCorrelation')
+          .populate('previousDhatu', 'name sanskritName order')
+          .populate('nextDhatu', 'name sanskritName order')
           .populate('sourceAcademicLayer.classicalReferences.reference', '-__v')
           .populate('scholarlyInterpretations.reference', '-__v')
           .select('-__v')
