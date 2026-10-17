@@ -1,5 +1,5 @@
 import React, { Suspense, useRef, useState, useEffect } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, ContactShadows } from '@react-three/drei';
 import HumanBodyModel from './HumanBodyModel.jsx';
 import ModelLoader from './ModelLoader.jsx';
@@ -7,7 +7,6 @@ import BodyControls from './BodyControls.jsx';
 import { getMappingBySlug } from '../../utils/dhatuMapping.js';
 import { AlertCircle, RefreshCw } from 'lucide-react';
 
-// Error Boundary for Canvas to catch WebGL or GLTF loading exceptions
 class CanvasErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -47,7 +46,6 @@ class CanvasErrorBoundary extends React.Component {
   }
 }
 
-// Camera controller helper to smoothly update position/target on selection
 function CameraRig({ selectedDhatu, controlsRef }) {
   useEffect(() => {
     if (!controlsRef.current) return;
@@ -64,6 +62,35 @@ function CameraRig({ selectedDhatu, controlsRef }) {
   return null;
 }
 
+function SpatialPedestal({ selectedColor = '#38bdf8' }) {
+  const ringRef = useRef();
+
+  useFrame((_, delta) => {
+    if (ringRef.current) {
+      ringRef.current.rotation.z += delta * 0.15;
+    }
+  });
+
+  return (
+    <group position={[0, -0.01, 0]}>
+      <mesh ref={ringRef} rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[0.95, 1.05, 48]} />
+        <meshBasicMaterial
+          color={selectedColor}
+          transparent
+          opacity={0.35}
+          wireframe={false}
+        />
+      </mesh>
+
+      <mesh rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[0.4, 0.45, 36]} />
+        <meshBasicMaterial color="#38bdf8" transparent opacity={0.25} />
+      </mesh>
+    </group>
+  );
+}
+
 export default function HumanBodyViewer({
   selectedDhatu,
   onSelectDhatu,
@@ -74,7 +101,8 @@ export default function HumanBodyViewer({
   const [autoRotate, setAutoRotate] = useState(false);
   const [webGLSupported, setWebGLSupported] = useState(true);
 
-  // Check WebGL availability upfront
+  const selectedMapping = getMappingBySlug(selectedDhatu);
+
   useEffect(() => {
     try {
       const canvas = document.createElement('canvas');
@@ -112,7 +140,7 @@ export default function HumanBodyViewer({
   if (!webGLSupported) {
     return (
       <div
-        className="w-full flex flex-col items-center justify-center p-6 text-center glass-panel rounded-2xl border-slate-800"
+        className="w-full flex flex-col items-center justify-center p-6 text-center glass-panel rounded-3xl border-slate-800"
         style={{ height }}
       >
         <AlertCircle className="w-10 h-10 text-amber-400 mb-3" />
@@ -128,16 +156,40 @@ export default function HumanBodyViewer({
 
   return (
     <div
-      className="relative w-full rounded-2xl overflow-hidden glass-panel border border-slate-800/80 shadow-2xl bg-gradient-to-b from-slate-950 via-slate-900/60 to-slate-950"
+      className="relative w-full rounded-3xl overflow-hidden glass-panel border border-slate-700/60 shadow-2xl bg-gradient-to-b from-[#060c1c] via-[#091124] to-[#040813] transition-all duration-300"
       style={{ height }}
     >
+      {/* Top Spatial HUD Header */}
+      <div className="absolute top-3 inset-x-4 flex items-center justify-between pointer-events-none z-10">
+        <div className="spatial-floating-hud px-3 py-1.5 rounded-full pointer-events-auto flex items-center gap-2 border border-slate-700/70 shadow-lg">
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+          <span className="text-[11px] font-mono tracking-wider text-slate-300 uppercase font-semibold">
+            Spatial Viewport • 3D Anatomy
+          </span>
+        </div>
+
+        {selectedMapping && (
+          <div className="spatial-floating-hud px-3.5 py-1.5 rounded-full pointer-events-auto flex items-center gap-2 border border-amber-500/30 shadow-xl animate-spatial-in">
+            <span
+              className="w-2.5 h-2.5 rounded-full shadow-sm"
+              style={{ backgroundColor: selectedMapping.uiColor }}
+            />
+            <span className="text-xs font-bold text-slate-100">
+              {selectedMapping.name}
+            </span>
+            <span className="text-xs font-classical text-amber-300">
+              ({selectedMapping.sanskritName})
+            </span>
+          </div>
+        )}
+      </div>
+
       <CanvasErrorBoundary>
         <Canvas
           camera={{ position: [0, 0.85, 2.7], fov: 40 }}
           dpr={[1, 2]}
           gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         >
-          {/* Professional Medical Studio Lighting */}
           <ambientLight intensity={0.95} />
           <directionalLight
             position={[5, 8, 5]}
@@ -146,30 +198,35 @@ export default function HumanBodyViewer({
             shadow-mapSize={[1024, 1024]}
           />
           <directionalLight position={[-5, 4, -2]} intensity={0.8} color="#93c5fd" />
-          <directionalLight position={[0, 4, -4]} intensity={1.0} color="#e0f2fe" />
-          <pointLight position={[0, 0.3, 2.0]} intensity={0.45} color="#fef08a" />
+          <directionalLight position={[0, 4, -4]} intensity={1.1} color="#e0f2fe" />
+
+          <pointLight
+            position={[0, 1.1, 1.8]}
+            intensity={0.65}
+            color={selectedMapping?.uiColor || '#38bdf8'}
+          />
+          <pointLight position={[0, 0.2, 1.5]} intensity={0.4} color="#fef08a" />
           <pointLight position={[0, 1.7, -1.8]} intensity={0.55} color="#38bdf8" />
 
-          {/* Model with Drei Suspense loader */}
           <Suspense fallback={<ModelLoader />}>
             <HumanBodyModel
               selectedDhatu={selectedDhatu}
               onSelectDhatu={onSelectDhatu}
             />
 
-            {/* Grounding contact shadow under soles of feet */}
+            <SpatialPedestal selectedColor={selectedMapping?.uiColor || '#38bdf8'} />
+
             <ContactShadows
               position={[0, 0.0, 0]}
-              opacity={0.45}
-              scale={2.2}
-              blur={2.0}
+              opacity={0.55}
+              scale={2.4}
+              blur={2.2}
               far={2.5}
             />
 
             <CameraRig selectedDhatu={selectedDhatu} controlsRef={controlsRef} />
           </Suspense>
 
-          {/* Camera Controls with Damping and Reasonable Zoom Limits */}
           <OrbitControls
             ref={controlsRef}
             target={[0, 0.85, 0]}
@@ -186,7 +243,6 @@ export default function HumanBodyViewer({
         </Canvas>
       </CanvasErrorBoundary>
 
-      {/* Visible Floating Control Bar */}
       <BodyControls
         onResetView={handleResetView}
         onZoomIn={handleZoomIn}

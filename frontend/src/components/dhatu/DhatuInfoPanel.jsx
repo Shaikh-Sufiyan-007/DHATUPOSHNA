@@ -57,17 +57,19 @@ export default function DhatuInfoPanel({ selectedDhatu, onSelectDhatu }) {
     };
   }, [selectedDhatu]);
 
-  // If no Dhatu is selected, show an inviting prompt
   if (!selectedDhatu) {
     return (
-      <div className="glass-panel rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center h-full min-h-[420px] border border-slate-800/80">
-        <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-4 shadow-lg shadow-amber-500/5">
-          <Sparkles className="w-8 h-8 animate-pulse" />
+      <div className="spatial-dock rounded-3xl p-6 sm:p-8 flex flex-col items-center justify-center text-center h-full min-h-[440px] border border-slate-700/60 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500/20 via-amber-500/10 to-cyan-500/10 border border-amber-500/30 flex items-center justify-center text-amber-300 mb-5 shadow-lg shadow-amber-500/10">
+          <Sparkles className="w-8 h-8 animate-pulse-subtle" />
         </div>
-        <h3 className="text-lg font-bold text-slate-100 font-heading mb-2">
+        <h3 className="text-xl font-bold text-slate-100 font-heading mb-2">
           Select an Anatomical Locus or Dhatu
         </h3>
-        <p className="text-slate-400 text-sm sm:text-sm max-w-sm leading-relaxed mb-6">
+        <p className="text-slate-300 text-xs sm:text-sm max-w-sm leading-relaxed mb-6">
           Click any highlighted region on the 3D human body model, or select one of the seven Sapta Dhatus to access authentic classical knowledge, Dhatvagni metabolic dynamics, and classical references.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-2">
@@ -77,9 +79,9 @@ export default function DhatuInfoPanel({ selectedDhatu, onSelectDhatu }) {
               <button
                 key={slug}
                 onClick={() => onSelectDhatu(slug)}
-                className="px-3 py-1.5 rounded-lg text-sm font-medium bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 hover:border-amber-500/40 transition flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-slate-700/70 hover:border-amber-400/50 hover:-translate-y-0.5 transition-all flex items-center gap-1.5 shadow-sm cursor-pointer"
               >
-                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: m?.uiColor }} />
+                <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: m?.uiColor }} />
                 <span>{m?.name}</span>
               </button>
             );
@@ -89,10 +91,9 @@ export default function DhatuInfoPanel({ selectedDhatu, onSelectDhatu }) {
     );
   }
 
-  // Loading state
   if (loading) {
     return (
-      <div className="glass-panel rounded-2xl p-8 flex items-center justify-center h-full min-h-[420px] border border-slate-800/80">
+      <div className="spatial-dock rounded-3xl p-8 flex items-center justify-center h-full min-h-[440px] border border-slate-700/60 shadow-2xl">
         <LoadingState
           message={`Loading ${mapping?.name || ''} Dhatu information...`}
           subtext="Fetching classical definition, karma, and metabolic relationships from MongoDB"
@@ -101,10 +102,9 @@ export default function DhatuInfoPanel({ selectedDhatu, onSelectDhatu }) {
     );
   }
 
-  // Error state
   if (error) {
     return (
-      <div className="glass-panel rounded-2xl p-8 flex items-center justify-center h-full min-h-[420px] border border-slate-800/80">
+      <div className="spatial-dock rounded-3xl p-8 flex items-center justify-center h-full min-h-[440px] border border-slate-700/60 shadow-2xl">
         <ErrorState
           title="Dhatu Information Unavailable"
           message={error}
@@ -130,8 +130,7 @@ export default function DhatuInfoPanel({ selectedDhatu, onSelectDhatu }) {
   if (!data) return null;
 
   return (
-    <div className="glass-panel rounded-2xl p-6 sm:p-7 border border-slate-800/80 flex flex-col justify-between h-full overflow-y-auto max-h-[720px] shadow-2xl animate-fadeIn">
-      {/* Header Info */}
+    <div className="spatial-dock rounded-3xl p-6 sm:p-7 border border-slate-700/60 flex flex-col justify-between h-full overflow-y-auto max-h-[720px] shadow-2xl animate-spatial-in">
       <div>
         <div className="flex items-center justify-between gap-3 mb-3 border-b border-slate-800/80 pb-4">
           <div>
@@ -154,7 +153,6 @@ export default function DhatuInfoPanel({ selectedDhatu, onSelectDhatu }) {
             </h2>
           </div>
 
-          {/* Educational Visualization Badge */}
           <div className="text-right">
             <span className="inline-block px-2.5 py-1 rounded-full text-[12px] font-semibold bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">
               3D Educational Locus
@@ -165,14 +163,12 @@ export default function DhatuInfoPanel({ selectedDhatu, onSelectDhatu }) {
           </div>
         </div>
 
-        {/* Definition / General Description */}
         {data.generalDescription && (
           <div className="mb-4 text-sm sm:text-sm text-slate-300 leading-relaxed bg-slate-900/40 p-3.5 rounded-xl border border-slate-800/60">
             {data.generalDescription}
           </div>
         )}
 
-        {/* Classical Lakshana / Definition */}
         {data.dhatuLakshana && (
           <div className="mb-4 p-3.5 rounded-xl bg-amber-500/5 border border-amber-500/20">
             <h4 className="text-sm font-semibold uppercase tracking-wider text-amber-300 mb-1 flex items-center gap-1.5">
@@ -187,7 +183,6 @@ export default function DhatuInfoPanel({ selectedDhatu, onSelectDhatu }) {
           </div>
         )}
 
-        {/* Functions (Karma) */}
         {data.functions && (
           <div className="mb-4">
             <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1.5">
@@ -213,7 +208,6 @@ export default function DhatuInfoPanel({ selectedDhatu, onSelectDhatu }) {
           </div>
         )}
 
-        {/* Location (Dhatu Sthana) */}
         {data.location && (
           <div className="mb-4">
             <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-1.5 flex items-center gap-1.5">
@@ -230,7 +224,6 @@ export default function DhatuInfoPanel({ selectedDhatu, onSelectDhatu }) {
           </div>
         )}
 
-        {/* Grid of Key Relationships: Upadhatus, Malas, Srotas */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mb-5 text-sm">
           {data.upadhatus && (
             <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
@@ -272,7 +265,6 @@ export default function DhatuInfoPanel({ selectedDhatu, onSelectDhatu }) {
           )}
         </div>
 
-        {/* Modern Correlation note (educational) */}
         {data.westernCorrelation && (
           <div className="mb-5 p-3 rounded-xl bg-slate-900/40 border border-slate-800 text-sm">
             <span className="text-sm uppercase font-semibold text-slate-400 block mb-0.5">
@@ -287,38 +279,37 @@ export default function DhatuInfoPanel({ selectedDhatu, onSelectDhatu }) {
         )}
       </div>
 
-      {/* Action Navigation Buttons (Requirement 22) */}
-      <div className="pt-4 border-t border-slate-800/80">
+      <div className="pt-4 border-t border-slate-700/60 mt-4">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           <Link
             to={`/dhatus/${data.slug || selectedDhatu}`}
-            className="px-3 py-2 rounded-xl text-center text-sm font-semibold bg-amber-500 hover:bg-amber-400 text-slate-950 transition flex items-center justify-center gap-1 shadow-md shadow-amber-500/10"
+            className="px-3 py-2.5 rounded-xl text-center text-xs font-bold bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:opacity-95 text-slate-950 transition-all duration-200 hover:-translate-y-0.5 flex items-center justify-center gap-1 shadow-lg shadow-amber-500/20"
           >
             <span>Full Details</span>
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-3.5 h-3.5" />
           </Link>
 
           <Link
             to={`/dhatvagni?dhatuId=${data._id}`}
-            className="px-3 py-2 rounded-xl text-center text-sm font-medium bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 transition flex items-center justify-center gap-1"
+            className="px-3 py-2.5 rounded-xl text-center text-xs font-semibold bg-slate-900/80 hover:bg-slate-800 text-amber-300 border border-amber-500/35 hover:border-amber-500/60 transition-all duration-200 hover:-translate-y-0.5 flex items-center justify-center gap-1 shadow-sm"
           >
-            <Flame className="w-4 h-4 text-amber-400" />
+            <Flame className="w-3.5 h-3.5 text-amber-400" />
             <span>Dhatvagni</span>
           </Link>
 
           <Link
             to={`/dhatuposhana?dhatuId=${data._id}`}
-            className="px-3 py-2 rounded-xl text-center text-sm font-medium bg-slate-900 hover:bg-slate-800 text-cyan-300 border border-cyan-500/30 transition flex items-center justify-center gap-1"
+            className="px-3 py-2.5 rounded-xl text-center text-xs font-semibold bg-slate-900/80 hover:bg-slate-800 text-cyan-300 border border-cyan-500/35 hover:border-cyan-500/60 transition-all duration-200 hover:-translate-y-0.5 flex items-center justify-center gap-1 shadow-sm"
           >
-            <GitBranch className="w-4 h-4 text-cyan-400" />
+            <GitBranch className="w-3.5 h-3.5 text-cyan-400" />
             <span>Poshana</span>
           </Link>
 
           <Link
             to={`/references?search=${encodeURIComponent(data.name)}`}
-            className="px-3 py-2 rounded-xl text-center text-sm font-medium bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 transition flex items-center justify-center gap-1"
+            className="px-3 py-2.5 rounded-xl text-center text-xs font-semibold bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-slate-700/80 hover:border-slate-500 transition-all duration-200 hover:-translate-y-0.5 flex items-center justify-center gap-1 shadow-sm"
           >
-            <BookMarked className="w-4 h-4 text-slate-400" />
+            <BookMarked className="w-3.5 h-3.5 text-slate-400" />
             <span>References</span>
           </Link>
         </div>
