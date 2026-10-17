@@ -32,10 +32,6 @@ export const connectDB = async () => {
     return mongoose.connection;
   } catch (error) {
     logger.error(`Initial MongoDB connection failed: ${error.message}`);
-    // In production we exit; in dev we log clearly
-    if (config.isProduction) {
-      process.exit(1);
-    }
     return null;
   }
 };
