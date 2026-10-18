@@ -1,32 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/layout/Navbar.jsx';
 import Footer from './components/layout/Footer.jsx';
+import LoadingState from './components/common/LoadingState.jsx';
+import ErrorBoundary from './components/common/ErrorBoundary.jsx';
 
-import Home from './pages/Home.jsx';
-import Explore3D from './pages/Explore3D.jsx';
-import Dhatus from './pages/Dhatus.jsx';
-import DhatuDetail from './pages/DhatuDetail.jsx';
-import Dhatvagni from './pages/Dhatvagni.jsx';
-import DhatvagniDetail from './pages/DhatvagniDetail.jsx';
-import Dhatuposhana from './pages/Dhatuposhana.jsx';
-import DhatuposhanaDetail from './pages/DhatuposhanaDetail.jsx';
-import Nyayas from './pages/Nyayas.jsx';
-import NyayaDetail from './pages/NyayaDetail.jsx';
-import Concepts from './pages/Concepts.jsx';
-import ConceptDetail from './pages/ConceptDetail.jsx';
-import Glossary from './pages/Glossary.jsx';
-import Quizzes from './pages/Quizzes.jsx';
-import QuizDetail from './pages/QuizDetail.jsx';
-import References from './pages/References.jsx';
-import ReferenceDetail from './pages/ReferenceDetail.jsx';
-import Search from './pages/Search.jsx';
-import Login from './pages/Login.jsx';
-import Signup from './pages/Signup.jsx';
-import NotFound from './pages/NotFound.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import ProtectedRoute from './components/common/ProtectedRoute.jsx';
 import PublicRoute from './components/common/PublicRoute.jsx';
+
+// Lazy-loaded pages for optimal bundle splitting and performance
+const Home = lazy(() => import('./pages/Home.jsx'));
+const Explore3D = lazy(() => import('./pages/Explore3D.jsx'));
+const Dhatus = lazy(() => import('./pages/Dhatus.jsx'));
+const DhatuDetail = lazy(() => import('./pages/DhatuDetail.jsx'));
+const Dhatvagni = lazy(() => import('./pages/Dhatvagni.jsx'));
+const DhatvagniDetail = lazy(() => import('./pages/DhatvagniDetail.jsx'));
+const Dhatuposhana = lazy(() => import('./pages/Dhatuposhana.jsx'));
+const DhatuposhanaDetail = lazy(() => import('./pages/DhatuposhanaDetail.jsx'));
+const Nyayas = lazy(() => import('./pages/Nyayas.jsx'));
+const NyayaDetail = lazy(() => import('./pages/NyayaDetail.jsx'));
+const Concepts = lazy(() => import('./pages/Concepts.jsx'));
+const ConceptDetail = lazy(() => import('./pages/ConceptDetail.jsx'));
+const Glossary = lazy(() => import('./pages/Glossary.jsx'));
+const Quizzes = lazy(() => import('./pages/Quizzes.jsx'));
+const QuizDetail = lazy(() => import('./pages/QuizDetail.jsx'));
+const References = lazy(() => import('./pages/References.jsx'));
+const ReferenceDetail = lazy(() => import('./pages/ReferenceDetail.jsx'));
+const Search = lazy(() => import('./pages/Search.jsx'));
+const Login = lazy(() => import('./pages/Login.jsx'));
+const Signup = lazy(() => import('./pages/Signup.jsx'));
+const NotFound = lazy(() => import('./pages/NotFound.jsx'));
 
 function ScrollToTop() {
   const { pathname, search } = useLocation();
@@ -57,56 +61,66 @@ export default function App() {
 
           <Navbar />
           <main className="relative z-10 flex-1">
-            <Routes>
-              <Route
-                path="/login"
-                element={
-                  <PublicRoute>
-                    <Login />
-                  </PublicRoute>
+            <ErrorBoundary>
+              <Suspense
+                fallback={
+                  <div className="min-h-[50vh] flex items-center justify-center">
+                    <LoadingState message="Loading Ayurvedic knowledge..." />
+                  </div>
                 }
-              />
-              <Route
-                path="/signup"
-                element={
-                  <PublicRoute>
-                    <Signup />
-                  </PublicRoute>
-                }
-              />
+              >
+                <Routes>
+                  <Route
+                    path="/login"
+                    element={
+                      <PublicRoute>
+                        <Login />
+                      </PublicRoute>
+                    }
+                  />
+                  <Route
+                    path="/signup"
+                    element={
+                      <PublicRoute>
+                        <Signup />
+                      </PublicRoute>
+                    }
+                  />
 
-              <Route element={<ProtectedRoute />}>
-                <Route path="/" element={<Home />} />
-                <Route path="/explore" element={<Explore3D />} />
+                  <Route element={<ProtectedRoute />}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/explore" element={<Explore3D />} />
 
-                <Route path="/dhatus" element={<Dhatus />} />
-                <Route path="/dhatus/:id" element={<DhatuDetail />} />
+                    <Route path="/dhatus" element={<Dhatus />} />
+                    <Route path="/dhatus/:id" element={<DhatuDetail />} />
 
-                <Route path="/dhatvagni" element={<Dhatvagni />} />
-                <Route path="/dhatvagni/:id" element={<DhatvagniDetail />} />
+                    <Route path="/dhatvagni" element={<Dhatvagni />} />
+                    <Route path="/dhatvagni/:id" element={<DhatvagniDetail />} />
 
-                <Route path="/dhatuposhana" element={<Dhatuposhana />} />
-                <Route path="/dhatuposhana/:id" element={<DhatuposhanaDetail />} />
+                    <Route path="/dhatuposhana" element={<Dhatuposhana />} />
+                    <Route path="/dhatuposhana/:id" element={<DhatuposhanaDetail />} />
 
-                <Route path="/nyayas" element={<Nyayas />} />
-                <Route path="/nyayas/:id" element={<NyayaDetail />} />
+                    <Route path="/nyayas" element={<Nyayas />} />
+                    <Route path="/nyayas/:id" element={<NyayaDetail />} />
 
-                <Route path="/concepts" element={<Concepts />} />
-                <Route path="/concepts/:id" element={<ConceptDetail />} />
+                    <Route path="/concepts" element={<Concepts />} />
+                    <Route path="/concepts/:id" element={<ConceptDetail />} />
 
-                <Route path="/glossary" element={<Glossary />} />
+                    <Route path="/glossary" element={<Glossary />} />
 
-                <Route path="/quizzes" element={<Quizzes />} />
-                <Route path="/quizzes/:id" element={<QuizDetail />} />
+                    <Route path="/quizzes" element={<Quizzes />} />
+                    <Route path="/quizzes/:id" element={<QuizDetail />} />
 
-                <Route path="/references" element={<References />} />
-                <Route path="/references/:id" element={<ReferenceDetail />} />
+                    <Route path="/references" element={<References />} />
+                    <Route path="/references/:id" element={<ReferenceDetail />} />
 
-                <Route path="/search" element={<Search />} />
+                    <Route path="/search" element={<Search />} />
+                  </Route>
 
-                <Route path="*" element={<NotFound />} />
-              </Route>
-            </Routes>
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+            </ErrorBoundary>
           </main>
           <Footer />
         </div>

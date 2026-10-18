@@ -2,13 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import {
   Sparkles,
-  Flame,
-  GitBranch,
   Activity,
-  BookOpen,
   ArrowRight,
-  ShieldCheck,
   Award,
+  Flame,
 } from 'lucide-react';
 import HumanBodyViewer from '../components/3d/HumanBodyViewer.jsx';
 import DhatuSelector from '../components/dhatu/DhatuSelector.jsx';
@@ -22,7 +19,6 @@ export default function Home() {
   const initialDhatu = searchParams.get('dhatu') || 'rasa';
   const [selectedDhatu, setSelectedDhatu] = useState(initialDhatu);
 
-  // Sync state with URL params
   const handleSelectDhatu = (dhatuSlug) => {
     setSelectedDhatu(dhatuSlug);
     if (dhatuSlug) {

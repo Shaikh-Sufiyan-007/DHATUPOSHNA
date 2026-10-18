@@ -11,7 +11,6 @@ import {
   Sparkles,
   Flame,
   GitBranch,
-  BookMarked,
   Activity,
   Layers,
   Shield,
@@ -51,8 +50,7 @@ export default function DhatuDetail() {
               setDhatuposhana(Array.isArray(poshanaRes.data) ? poshanaRes.data[0] : poshanaRes.data);
             }
           }
-        } catch (e) {
-          console.log('Linked metadata fetch note:', e.message);
+        } catch {
         }
 
         setLoading(false);

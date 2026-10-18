@@ -11,6 +11,20 @@ export default defineConfig({
   server: {
     port: 3000,
     open: false
+  },
+  build: {
+    chunkSizeWarningLimit: 1500,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('three') || id.includes('@react-three')) {
+            return 'vendor-three';
+          }
+          if (id.includes('lucide-react')) {
+            return 'vendor-icons';
+          }
+        }
+      }
+    }
   }
 })
-

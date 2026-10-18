@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Sparkles, Maximize2, Minimize2, ArrowLeft, Layers, ShieldCheck } from 'lucide-react';
+import { Sparkles, Maximize2, Minimize2, ArrowLeft } from 'lucide-react';
 import HumanBodyViewer from '../components/3d/HumanBodyViewer.jsx';
 import DhatuSelector from '../components/dhatu/DhatuSelector.jsx';
 import DhatuInfoPanel from '../components/dhatu/DhatuInfoPanel.jsx';

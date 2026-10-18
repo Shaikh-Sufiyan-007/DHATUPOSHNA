@@ -56,8 +56,8 @@ export default function QuizDetail() {
         total: current.total + 1,
       };
       sessionStorage.setItem('ayur_quiz_score', JSON.stringify(updated));
-    } catch (e) {
-      console.log('Session storage error:', e);
+    } catch {
+      // Storage unavailable or disabled
     }
   };
 
