@@ -39,16 +39,16 @@ export default function Dhatus() {
   }, []);
 
   return (
-    <div className="space-y-8 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-8 animate-spatial-in">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 spatial-dock p-6 sm:p-8 rounded-3xl border border-slate-700/60 shadow-xl">
+    <div className="space-y-6 sm:space-y-8 w-full max-w-[1920px] mx-auto px-3 sm:px-6 lg:px-10 xl:px-12 py-6 sm:py-8 animate-spatial-in">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6 spatial-dock p-4 sm:p-6 lg:p-8 rounded-3xl border border-slate-700/60 shadow-xl">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <Layers className="w-5 h-5 text-amber-400" />
+            <Layers className="w-5 h-5 text-amber-400 shrink-0" />
             <span className="text-xs uppercase tracking-wider font-semibold font-mono text-amber-300">
               सप्त धातु विज्ञान • Spatial Anatomy
             </span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-100 font-heading">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-100 font-heading">
             The Sapta Dhatus (Seven Bodily Tissues)
           </h1>
           <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
@@ -56,10 +56,10 @@ export default function Dhatus() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 shrink-0">
           <button
             onClick={() => setShowComparison(!showComparison)}
-            className={`px-4 py-2.5 rounded-2xl text-xs font-bold border transition-all duration-200 flex items-center gap-2 cursor-pointer hover:-translate-y-0.5 ${showComparison
+            className={`px-4 py-2.5 rounded-2xl text-xs font-bold border transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer hover:-translate-y-0.5 min-h-[44px] touch-target ${showComparison
                 ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-lg shadow-amber-500/20'
                 : 'bg-slate-900/90 text-slate-200 border-slate-700 hover:bg-slate-800'
               }`}
@@ -70,9 +70,9 @@ export default function Dhatus() {
 
           <Link
             to="/explore"
-            className="px-4 py-2.5 rounded-2xl text-xs font-bold bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 hover:opacity-95 shadow-lg shadow-amber-500/20 hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-1.5"
+            className="px-4 py-2.5 rounded-2xl text-xs font-bold bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 hover:opacity-95 shadow-lg shadow-amber-500/20 hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-1.5 min-h-[44px] touch-target"
           >
-            <Sparkles className="w-4 h-4" />
+            <Sparkles className="w-4 h-4 shrink-0" />
             <span>3D Viewport</span>
           </Link>
         </div>
@@ -82,41 +82,46 @@ export default function Dhatus() {
       {error && <ErrorState message={error} onRetry={fetchDhatus} />}
 
       {showComparison && comparison && (
-        <div className="spatial-dock p-6 rounded-3xl border border-amber-500/30 overflow-x-auto animate-spatial-in shadow-2xl">
-          <h2 className="text-lg font-bold text-slate-100 font-heading mb-4 flex items-center gap-2">
-            <Table2 className="w-5 h-5 text-amber-400" />
-            <span>Sapta Dhatu Comparative Matrix</span>
-          </h2>
+        <div className="spatial-dock p-4 sm:p-6 rounded-3xl border border-amber-500/30 overflow-x-auto shadow-2xl animate-spatial-in">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <h2 className="text-base sm:text-lg font-bold text-slate-100 font-heading flex items-center gap-2">
+              <Table2 className="w-5 h-5 text-amber-400 shrink-0" />
+              <span>Sapta Dhatu Comparative Matrix</span>
+            </h2>
+            <span className="text-[11px] font-mono text-slate-400 md:hidden">
+              Swipe horizontally to view full matrix →
+            </span>
+          </div>
 
-          <table className="w-full text-left text-xs border-collapse">
+          <table className="w-full text-left text-xs border-collapse min-w-[720px]">
             <thead>
               <tr className="border-b border-slate-700 bg-slate-900/70 text-slate-300">
-                <th className="p-3.5 font-bold uppercase tracking-wider text-[11px]">Order</th>
-                <th className="p-3.5 font-bold uppercase tracking-wider text-[11px]">Dhatu Name</th>
-                <th className="p-3.5 font-bold uppercase tracking-wider text-[11px]">Sanskrit</th>
-                <th className="p-3.5 font-bold uppercase tracking-wider text-[11px]">Primary Function (Karma)</th>
-                <th className="p-3.5 font-bold uppercase tracking-wider text-[11px]">Upadhatu</th>
-                <th className="p-3.5 font-bold uppercase tracking-wider text-[11px]">Mala</th>
-                <th className="p-3.5 font-bold uppercase tracking-wider text-[11px]">Action</th>
+                <th className="p-3 sm:p-3.5 font-bold uppercase tracking-wider text-[11px]">Order</th>
+                <th className="p-3 sm:p-3.5 font-bold uppercase tracking-wider text-[11px]">Dhatu Name</th>
+                <th className="p-3 sm:p-3.5 font-bold uppercase tracking-wider text-[11px]">Sanskrit</th>
+                <th className="p-3 sm:p-3.5 font-bold uppercase tracking-wider text-[11px]">Primary Function (Karma)</th>
+                <th className="p-3 sm:p-3.5 font-bold uppercase tracking-wider text-[11px]">Upadhatu</th>
+                <th className="p-3 sm:p-3.5 font-bold uppercase tracking-wider text-[11px]">Mala</th>
+                <th className="p-3 sm:p-3.5 font-bold uppercase tracking-wider text-[11px]">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/80 text-slate-300">
               {(comparison.matrix || dhatus).map((row, i) => (
                 <tr key={row._id || i} className="hover:bg-slate-800/50 transition duration-150">
-                  <td className="p-3.5 font-mono font-extrabold text-amber-400">#{row.order || i + 1}</td>
-                  <td className="p-3.5 font-bold text-slate-100">{row.name}</td>
-                  <td className="p-3.5 font-classical text-amber-300">
+                  <td className="p-3 sm:p-3.5 font-mono font-extrabold text-amber-400">#{row.order || i + 1}</td>
+                  <td className="p-3 sm:p-3.5 font-bold text-slate-100 whitespace-nowrap">{row.name}</td>
+                  <td className="p-3 sm:p-3.5 font-classical text-amber-300 whitespace-nowrap">
                     {typeof row.sanskritName === 'object'
                       ? row.sanskritName?.devanagari || row.sanskritName?.iast || '-'
                       : (row.sanskritName || '-')}
                   </td>
-                  <td className="p-3.5 max-w-xs">{row.primaryFunction || row.functions?.[0]?.meaning || row.functions?.[0]?.description || '-'}</td>
-                  <td className="p-3.5 text-cyan-300 font-medium">{Array.isArray(row.upadhatus) ? row.upadhatus.map(u => typeof u === 'object' ? u.name : u).join(', ') : row.upadhatu || '-'}</td>
-                  <td className="p-3.5 text-amber-300/80 font-medium">{Array.isArray(row.malas) ? row.malas.map(m => typeof m === 'object' ? m.name : m).join(', ') : row.mala || '-'}</td>
-                  <td className="p-3.5">
+                  <td className="p-3 sm:p-3.5 max-w-xs">{row.primaryFunction || row.functions?.[0]?.meaning || row.functions?.[0]?.description || '-'}</td>
+                  <td className="p-3 sm:p-3.5 text-cyan-300 font-medium">{Array.isArray(row.upadhatus) ? row.upadhatus.map(u => typeof u === 'object' ? u.name : u).join(', ') : row.upadhatu || '-'}</td>
+                  <td className="p-3 sm:p-3.5 text-amber-300/80 font-medium">{Array.isArray(row.malas) ? row.malas.map(m => typeof m === 'object' ? m.name : m).join(', ') : row.mala || '-'}</td>
+                  <td className="p-3 sm:p-3.5 whitespace-nowrap">
                     <Link
                       to={`/dhatus/${row.slug || row._id}`}
-                      className="text-amber-400 hover:text-amber-300 font-semibold inline-flex items-center gap-1 hover:underline"
+                      className="text-amber-400 hover:text-amber-300 font-semibold inline-flex items-center gap-1 hover:underline min-h-[32px] py-1"
                     >
                       <span>Explore</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -130,7 +135,7 @@ export default function Dhatus() {
       )}
 
       {!loading && !error && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
           {dhatus.map((dhatu) => (
             <DhatuCard key={dhatu._id} dhatu={dhatu} />
           ))}

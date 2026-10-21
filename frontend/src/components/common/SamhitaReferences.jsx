@@ -109,7 +109,7 @@ export default function SamhitaReferences({
     .filter(Boolean);
 
   return (
-    <div className={`glass-panel p-6 sm:p-7 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden ${className}`}>
+    <div className={`glass-panel p-4 sm:p-6 lg:p-7 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden ${className}`}>
       <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-200 mb-4 flex items-center gap-2">
         <BookMarked className="w-4 h-4 text-amber-400 shrink-0" />
         <span>{title}</span>

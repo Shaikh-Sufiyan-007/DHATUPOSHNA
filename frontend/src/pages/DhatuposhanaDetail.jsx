@@ -129,28 +129,28 @@ export default function DhatuposhanaDetail() {
     [];
 
   return (
-    <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-8 space-y-8 animate-spatial-in">
-      <div className="flex items-center justify-between gap-4 spatial-dock p-3 sm:p-4 rounded-2xl border border-slate-700/60 shadow-lg">
+    <div className="w-full max-w-[1920px] mx-auto px-3 sm:px-6 lg:px-10 xl:px-12 py-6 sm:py-8 space-y-6 sm:space-y-8 animate-spatial-in">
+      <div className="flex flex-col xs:flex-row items-stretch xs:items-center justify-between gap-3 spatial-dock p-3 sm:p-4 rounded-2xl border border-slate-700/60 shadow-lg">
         <Link
           to="/dhatuposhana"
-          className="inline-flex items-center gap-2 text-xs font-bold text-slate-300 hover:text-white transition px-3 py-1.5 rounded-xl hover:bg-slate-800/80 cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 text-xs font-bold text-slate-300 hover:text-white transition px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 cursor-pointer min-h-[44px] touch-target"
         >
           <ArrowLeft className="w-4 h-4 text-cyan-400" />
           <span>All Nourishment Pathways</span>
         </Link>
 
         {targetDhatuSlug && (
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-center xs:justify-end gap-2">
             <Link
               to={`/explore?dhatu=${targetDhatuSlug}`}
-              className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/35 transition cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/35 transition cursor-pointer min-h-[44px] touch-target"
             >
               <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
               <span>3D Body Anatomy</span>
             </Link>
             <Link
               to={`/dhatus/${targetDhatuSlug}`}
-              className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition cursor-pointer min-h-[44px] touch-target"
             >
               <Layers className="w-3.5 h-3.5 text-amber-400" />
               <span>{data.dhatu?.name || 'Dhatu'} Overview</span>
@@ -159,7 +159,7 @@ export default function DhatuposhanaDetail() {
         )}
       </div>
 
-      <div className="spatial-dock p-6 sm:p-10 rounded-3xl border border-slate-700/60 shadow-2xl relative overflow-hidden">
+      <div className="spatial-dock p-4 sm:p-6 lg:p-10 rounded-3xl border border-slate-700/60 shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent pointer-events-none" />
 
         <div className="flex flex-wrap items-center gap-2 mb-3">
@@ -174,7 +174,7 @@ export default function DhatuposhanaDetail() {
           )}
         </div>
 
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-100 font-heading mb-2">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-100 font-heading mb-2">
           {data.name || (data.dhatu?.name ? `${data.dhatu.name} Nourishment Dynamics` : 'Tissue Nourishment Dynamics')}
         </h1>
 

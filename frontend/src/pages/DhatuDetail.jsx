@@ -90,46 +90,46 @@ export default function DhatuDetail() {
   const mapping = getMappingBySlug(dhatu.slug);
 
   return (
-    <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-8 space-y-8 animate-spatial-in">
-      <div className="flex items-center justify-between gap-4 spatial-dock p-3 sm:p-4 rounded-2xl border border-slate-700/60 shadow-lg">
+    <div className="w-full max-w-[1920px] mx-auto px-3 sm:px-6 lg:px-10 xl:px-12 py-6 sm:py-8 space-y-6 sm:space-y-8 animate-spatial-in">
+      <div className="flex flex-col xs:flex-row items-stretch xs:items-center justify-between gap-3 spatial-dock p-3 sm:p-4 rounded-2xl border border-slate-700/60 shadow-lg">
         <Link
           to="/dhatus"
-          className="inline-flex items-center gap-2 text-xs font-bold text-slate-300 hover:text-white transition px-3 py-1.5 rounded-xl hover:bg-slate-800/80 cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 text-xs font-bold text-slate-300 hover:text-white transition px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 cursor-pointer min-h-[44px] touch-target"
         >
-          <ArrowLeft className="w-4 h-4 text-amber-400" />
+          <ArrowLeft className="w-4 h-4 text-amber-400 shrink-0" />
           <span>All Sapta Dhatus</span>
         </Link>
 
         <Link
           to={`/explore?dhatu=${dhatu.slug}`}
-          className="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 hover:opacity-95 shadow-lg shadow-amber-500/20 hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-2 cursor-pointer"
+          className="px-4 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 hover:opacity-95 shadow-lg shadow-amber-500/20 hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer min-h-[44px] touch-target"
         >
-          <Sparkles className="w-4 h-4" />
+          <Sparkles className="w-4 h-4 shrink-0" />
           <span>View in 3D Human Body</span>
         </Link>
       </div>
 
-      <div className="spatial-dock p-6 sm:p-8 rounded-3xl border border-slate-700/60 shadow-2xl relative overflow-hidden">
+      <div className="spatial-dock p-4 sm:p-6 lg:p-8 rounded-3xl border border-slate-700/60 shadow-2xl relative overflow-hidden">
         <div
           className="absolute -top-16 -right-16 w-56 h-56 rounded-full blur-3xl opacity-20 pointer-events-none"
           style={{ backgroundColor: mapping?.uiColor || '#f59e0b' }}
         />
 
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6 mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5 sm:pb-6 mb-5 sm:mb-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span
-                className="w-3.5 h-3.5 rounded-full shadow-sm"
+                className="w-3.5 h-3.5 rounded-full shadow-sm shrink-0"
                 style={{ backgroundColor: mapping?.uiColor || '#f59e0b' }}
               />
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-400">
                 Dhatu #{dhatu.order || mapping?.sequence || '1'} • Sequential Parinama
               </span>
             </div>
-            <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-100 font-heading flex items-baseline gap-3">
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-slate-100 font-heading flex flex-wrap items-baseline gap-2 sm:gap-3">
               <span>{dhatu.name}</span>
               {dhatu.sanskritName && (
-                <span className="text-2xl sm:text-3xl font-classical text-amber-300">
+                <span className="text-xl sm:text-2xl lg:text-3xl font-classical text-amber-300">
                   ({typeof dhatu.sanskritName === 'object'
                     ? dhatu.sanskritName.devanagari || dhatu.sanskritName.iast
                     : dhatu.sanskritName})
@@ -138,7 +138,7 @@ export default function DhatuDetail() {
             </h1>
           </div>
 
-          <div className="sm:text-right">
+          <div className="sm:text-right shrink-0">
             <span className="inline-block px-3 py-1.5 rounded-full text-xs font-semibold bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 shadow-sm">
               {typeof dhatu.classification === 'object'
                 ? dhatu.classification.category || 'Sapta Dhatu'
@@ -153,7 +153,7 @@ export default function DhatuDetail() {
         </div>
 
         {dhatu.generalDescription && (
-          <p className="text-xs sm:text-sm md:text-base text-slate-200 leading-relaxed max-w-4xl bg-slate-900/50 p-4 rounded-2xl border border-slate-800/80">
+          <p className="text-xs sm:text-sm md:text-base text-slate-200 leading-relaxed max-w-4xl bg-slate-900/50 p-3.5 sm:p-4 rounded-2xl border border-slate-800/80">
             {dhatu.generalDescription}
           </p>
         )}

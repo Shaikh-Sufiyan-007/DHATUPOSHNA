@@ -37,13 +37,13 @@ export default function Home() {
 
   return (
     <div className="space-y-12 sm:space-y-16 pb-12 animate-spatial-in">
-      <section className="relative pt-6 sm:pt-10 pb-4 text-center w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full spatial-pill text-amber-300 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-6 shadow-lg shadow-amber-500/10">
-          <Sparkles className="w-4 h-4 text-amber-400" />
+      <section className="relative pt-4 sm:pt-10 pb-4 text-center w-full max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full spatial-pill text-amber-300 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-4 sm:mb-6 shadow-lg shadow-amber-500/10">
+          <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
           <span>Sapta Dhatu Spatial Epistemology</span>
         </div>
 
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-100 font-heading leading-tight mb-5">
+        <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-100 font-heading leading-tight mb-4 sm:mb-5">
           Interactive{' '}
           <span className="bg-gradient-to-r from-amber-400 via-amber-200 to-cyan-300 bg-clip-text text-transparent glow-amber">
             3D Human Body
@@ -51,39 +51,39 @@ export default function Home() {
           & Ayurvedic Dhatu Knowledge
         </h1>
 
-        <p className="text-slate-300 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed mb-8">
+        <p className="text-slate-300 text-xs sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed mb-6 sm:mb-8">
           Explore the seven structural tissues (<span className="text-amber-300 font-semibold font-classical">सप्त धातु</span>), metabolic transformation by Dhatvagni, and classic nourishment theories (Nyayas) through a real-time spatial anatomical 3D viewport verified by classical Samhitas.
         </p>
 
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <SearchBar />
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto">
           <Link
             to="/explore"
-            className="px-6 py-3.5 rounded-2xl text-xs sm:text-sm font-bold bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 hover:opacity-95 shadow-xl shadow-amber-500/25 hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-2"
+            className="w-full sm:w-auto px-6 py-3.5 rounded-2xl text-xs sm:text-sm font-bold bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 hover:opacity-95 shadow-xl shadow-amber-500/25 hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 min-h-[44px] touch-target"
           >
-            <Sparkles className="w-4 h-4" />
+            <Sparkles className="w-4 h-4 shrink-0" />
             <span>Dedicated 3D Explorer</span>
           </Link>
 
           <Link
             to="/dhatus"
-            className="px-6 py-3.5 rounded-2xl text-xs sm:text-sm font-semibold spatial-pill text-slate-200 hover:text-white hover:-translate-y-0.5 shadow-lg transition-all duration-200 flex items-center gap-2"
+            className="w-full sm:w-auto px-6 py-3.5 rounded-2xl text-xs sm:text-sm font-semibold spatial-pill text-slate-200 hover:text-white hover:-translate-y-0.5 shadow-lg transition-all duration-200 flex items-center justify-center gap-2 min-h-[44px] touch-target"
           >
             <span>Browse All 7 Dhatus</span>
-            <ArrowRight className="w-4 h-4 text-amber-400" />
+            <ArrowRight className="w-4 h-4 text-amber-400 shrink-0" />
           </Link>
         </div>
       </section>
 
-      <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      <section className="w-full max-w-[1920px] mx-auto px-3 sm:px-6 lg:px-10 xl:px-12">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 sm:mb-6">
           <div>
-            <div className="flex items-center gap-2.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-100 font-heading">
+            <div className="flex items-center gap-2 sm:gap-2.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping shrink-0" />
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-100 font-heading">
                 Interactive Human Body & Dhatu Nexus
               </h2>
             </div>
@@ -93,7 +93,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mb-6">
+        <div className="mb-4 sm:mb-6">
           <DhatuSelector
             selectedDhatu={selectedDhatu}
             onSelectDhatu={handleSelectDhatu}
@@ -106,7 +106,7 @@ export default function Home() {
             <HumanBodyViewer
               selectedDhatu={selectedDhatu}
               onSelectDhatu={handleSelectDhatu}
-              height="650px"
+              height="clamp(420px, 60vh, 650px)"
               interactive={true}
             />
           </div>
@@ -120,9 +120,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 pt-6">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl sm:text-4xl font-bold text-slate-100 font-heading mb-3">
+      <section className="w-full max-w-[1920px] mx-auto px-3 sm:px-6 lg:px-10 xl:px-12 pt-6">
+        <div className="text-center mb-8 sm:mb-10">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-100 font-heading mb-3">
             Pillars of Dhatu Epistemology
           </h2>
           <p className="text-xs sm:text-sm md:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
@@ -130,7 +130,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
           <div className="glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between group">
             <div>
               <div className="w-12 h-12 rounded-2xl bg-orange-500/15 border border-orange-500/35 flex items-center justify-center text-orange-400 mb-5 group-hover:scale-105 transition-transform duration-200 shadow-md">
@@ -145,7 +145,7 @@ export default function Home() {
             </div>
             <Link
               to="/dhatvagni"
-              className="text-xs sm:text-sm font-semibold text-amber-400 hover:text-amber-300 transition-all flex items-center gap-2 pt-4 border-t border-slate-800 group-hover:border-amber-500/30"
+              className="text-xs sm:text-sm font-semibold text-amber-400 hover:text-amber-300 transition-all flex items-center gap-2 pt-4 border-t border-slate-800 group-hover:border-amber-500/30 min-h-[44px] touch-target"
             >
               <span>Explore 7 Dhatvagnis</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -166,14 +166,14 @@ export default function Home() {
             </div>
             <Link
               to="/nyayas"
-              className="text-xs sm:text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-all flex items-center gap-2 pt-4 border-t border-slate-800 group-hover:border-cyan-500/30"
+              className="text-xs sm:text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-all flex items-center gap-2 pt-4 border-t border-slate-800 group-hover:border-cyan-500/30 min-h-[44px] touch-target"
             >
               <span>Compare Three Nyayas</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
 
-          <div className="glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between group">
+          <div className="glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between group md:col-span-2 lg:col-span-1">
             <div>
               <div className="w-12 h-12 rounded-2xl bg-purple-500/15 border border-purple-500/35 flex items-center justify-center text-purple-400 mb-5 group-hover:scale-105 transition-transform duration-200 shadow-md">
                 <Award className="w-6 h-6" />
@@ -187,7 +187,7 @@ export default function Home() {
             </div>
             <Link
               to="/references"
-              className="text-xs sm:text-sm font-semibold text-purple-400 hover:text-purple-300 transition-all flex items-center gap-2 pt-4 border-t border-slate-800 group-hover:border-purple-500/30"
+              className="text-xs sm:text-sm font-semibold text-purple-400 hover:text-purple-300 transition-all flex items-center gap-2 pt-4 border-t border-slate-800 group-hover:border-purple-500/30 min-h-[44px] touch-target"
             >
               <span>View Classical Sources</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -196,7 +196,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 pt-4">
+      <div className="w-full max-w-[1920px] mx-auto px-3 sm:px-6 lg:px-10 xl:px-12 pt-4">
         <DisclaimerBanner />
       </div>
     </div>

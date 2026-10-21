@@ -156,28 +156,28 @@ export default function HumanBodyViewer({
 
   return (
     <div
-      className="relative w-full rounded-3xl overflow-hidden glass-panel border border-slate-700/60 shadow-2xl bg-gradient-to-b from-[#060c1c] via-[#091124] to-[#040813] transition-all duration-300"
+      className="relative w-full rounded-3xl overflow-hidden glass-panel border border-slate-700/60 shadow-2xl bg-gradient-to-b from-[#060c1c] via-[#091124] to-[#040813] transition-all duration-300 min-h-[380px] sm:min-h-[500px]"
       style={{ height }}
     >
       {/* Top Spatial HUD Header */}
-      <div className="absolute top-3 inset-x-4 flex items-center justify-between pointer-events-none z-10">
-        <div className="spatial-floating-hud px-3 py-1.5 rounded-full pointer-events-auto flex items-center gap-2 border border-slate-700/70 shadow-lg">
-          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-          <span className="text-[11px] font-mono tracking-wider text-slate-300 uppercase font-semibold">
-            Spatial Viewport • 3D Anatomy
+      <div className="absolute top-2.5 sm:top-3 inset-x-2.5 sm:inset-x-4 flex items-center justify-between gap-2 pointer-events-none z-10">
+        <div className="spatial-floating-hud px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full pointer-events-auto flex items-center gap-1.5 sm:gap-2 border border-slate-700/70 shadow-lg">
+          <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-cyan-400 animate-ping" />
+          <span className="text-[10px] sm:text-[11px] font-mono tracking-wider text-slate-300 uppercase font-semibold">
+            <span className="hidden xs:inline">Spatial Viewport • </span>3D Anatomy
           </span>
         </div>
 
         {selectedMapping && (
-          <div className="spatial-floating-hud px-3.5 py-1.5 rounded-full pointer-events-auto flex items-center gap-2 border border-amber-500/30 shadow-xl animate-spatial-in">
+          <div className="spatial-floating-hud px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full pointer-events-auto flex items-center gap-1.5 sm:gap-2 border border-amber-500/30 shadow-xl animate-spatial-in">
             <span
-              className="w-2.5 h-2.5 rounded-full shadow-sm"
+              className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full shadow-sm shrink-0"
               style={{ backgroundColor: selectedMapping.uiColor }}
             />
-            <span className="text-xs font-bold text-slate-100">
+            <span className="text-[11px] sm:text-xs font-bold text-slate-100">
               {selectedMapping.name}
             </span>
-            <span className="text-xs font-classical text-amber-300">
+            <span className="text-[11px] sm:text-xs font-classical text-amber-300 hidden sm:inline">
               ({selectedMapping.sanskritName})
             </span>
           </div>

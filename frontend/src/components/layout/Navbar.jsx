@@ -50,27 +50,27 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-2 sm:top-3.5 z-50 mx-3 sm:mx-6 lg:mx-8 xl:mx-auto max-w-[1880px] spatial-dock rounded-2xl border border-slate-700/60 transition-all duration-300">
-      <div className="w-full px-3.5 sm:px-6">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-3 group shrink-0">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-amber-400 to-cyan-400 p-[1px] shadow-lg shadow-amber-500/15 group-hover:shadow-amber-500/35 transition-all duration-300 group-hover:scale-105">
+    <header className="sticky top-2 sm:top-3.5 z-50 mx-2 sm:mx-6 lg:mx-8 xl:mx-auto max-w-[1880px] spatial-dock rounded-2xl border border-slate-700/60 transition-all duration-300">
+      <div className="w-full px-3 sm:px-6">
+        <div className="flex items-center justify-between h-16 gap-2">
+          <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-amber-400 to-cyan-400 p-[1px] shadow-lg shadow-amber-500/15 group-hover:shadow-amber-500/35 transition-all duration-300 group-hover:scale-105 shrink-0">
               <div className="w-full h-full bg-slate-950/90 backdrop-blur-md rounded-[11px] flex items-center justify-center">
-                <span className="font-classical text-lg font-bold bg-gradient-to-r from-amber-300 via-amber-100 to-cyan-200 bg-clip-text text-transparent">
+                <span className="font-classical text-base sm:text-lg font-bold bg-gradient-to-r from-amber-300 via-amber-100 to-cyan-200 bg-clip-text text-transparent">
                   धा
                 </span>
               </div>
             </div>
-            <div>
+            <div className="min-w-0">
               <div className="flex items-center gap-1.5">
-                <span className="text-base font-bold tracking-tight text-slate-100 font-heading">
+                <span className="text-sm sm:text-base font-bold tracking-tight text-slate-100 font-heading truncate">
                   DHATUPOSHANA
                 </span>
-                <span className="text-[10px] uppercase tracking-wider font-semibold px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/25 shadow-sm">
+                <span className="text-[9px] sm:text-[10px] uppercase tracking-wider font-semibold px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/25 shadow-sm hidden sm:inline-block shrink-0">
                   Spatial 3D
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400 hidden sm:block tracking-wide">
+              <p className="text-[10px] sm:text-[11px] text-slate-400 hidden md:block tracking-wide truncate">
                 Sapta Dhatu Knowledge Platform
               </p>
             </div>
@@ -78,7 +78,7 @@ export default function Navbar() {
 
           <form
             onSubmit={handleSearchSubmit}
-            className="hidden md:flex items-center relative w-60 lg:w-72 xl:w-80 group"
+            className="hidden xl:flex items-center relative w-56 2xl:w-80 group shrink-0"
           >
             <input
               type="text"
@@ -93,7 +93,7 @@ export default function Navbar() {
             </span>
           </form>
 
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5">
+          <nav className="hidden xl:flex items-center gap-1 2xl:gap-1.5">
             {navLinks.map((link) => {
               const Icon = link.icon;
               return (
@@ -101,7 +101,7 @@ export default function Navbar() {
                   key={link.path}
                   to={link.path}
                   className={({ isActive }) =>
-                    `px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 ${isActive
+                    `px-2 2xl:px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap ${isActive
                       ? 'bg-amber-500/18 text-amber-300 border border-amber-500/40 shadow-lg shadow-amber-500/10'
                       : link.highlight
                         ? 'text-cyan-300 hover:text-cyan-200 hover:bg-cyan-500/12 border border-cyan-500/20'
@@ -109,28 +109,28 @@ export default function Navbar() {
                     }`
                   }
                 >
-                  <Icon className="w-3.5 h-3.5" />
+                  <Icon className="w-3.5 h-3.5 shrink-0" />
                   <span>{link.name}</span>
                 </NavLink>
               );
             })}
           </nav>
 
-          <div className="hidden lg:flex items-center gap-2 pl-3 border-l border-slate-800/80">
+          <div className="hidden xl:flex items-center gap-2 pl-3 border-l border-slate-800/80 shrink-0">
             {isAuthenticated ? (
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-700/70 text-xs shadow-sm">
                   <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-amber-400 to-amber-600 text-slate-950 font-bold text-[10px] flex items-center justify-center shadow">
                     {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
                   </div>
-                  <span className="max-w-[110px] truncate text-slate-200 font-medium">
+                  <span className="max-w-[100px] truncate text-slate-200 font-medium">
                     {user?.name || 'User'}
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="px-2.5 py-1.5 rounded-xl text-xs font-medium text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20 transition flex items-center gap-1.5 cursor-pointer"
+                  className="px-2.5 py-1.5 rounded-xl text-xs font-medium text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20 transition flex items-center gap-1.5 cursor-pointer min-h-[36px]"
                   title="Sign out"
                 >
                   <LogOut className="w-3.5 h-3.5" />
@@ -141,14 +141,14 @@ export default function Navbar() {
               <div className="flex items-center gap-2">
                 <Link
                   to="/login"
-                  className="px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800/70 border border-slate-700/60 transition flex items-center gap-1.5"
+                  className="px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800/70 border border-slate-700/60 transition flex items-center gap-1.5 min-h-[36px]"
                 >
                   <LogIn className="w-3.5 h-3.5" />
                   <span>Login</span>
                 </Link>
                 <Link
                   to="/signup"
-                  className="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 hover:opacity-95 shadow-lg shadow-amber-500/20 transition flex items-center gap-1.5"
+                  className="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 hover:opacity-95 shadow-lg shadow-amber-500/20 transition flex items-center gap-1.5 min-h-[36px]"
                 >
                   <UserPlus className="w-3.5 h-3.5" />
                   <span>Sign Up</span>
@@ -157,17 +157,17 @@ export default function Navbar() {
             )}
           </div>
 
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-2 xl:hidden shrink-0">
             <Link
               to="/explore"
-              className="px-3 py-1.5 text-xs font-bold rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md flex items-center gap-1"
+              className="px-2.5 sm:px-3 py-2 text-xs font-bold rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md flex items-center gap-1 min-h-[44px] touch-target"
             >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>3D Body</span>
+              <Sparkles className="w-3.5 h-3.5 shrink-0" />
+              <span className="hidden xs:inline">3D Body</span>
             </Link>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl text-slate-300 hover:text-white bg-slate-900/80 border border-slate-700/70 transition"
+              className="w-11 h-11 rounded-xl text-slate-300 hover:text-white bg-slate-900/80 border border-slate-700/70 transition flex items-center justify-center shrink-0 cursor-pointer touch-target"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -177,19 +177,19 @@ export default function Navbar() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="lg:hidden mt-2 p-4 rounded-2xl bg-slate-950/95 backdrop-blur-2xl border-t border-slate-800 shadow-2xl animate-spatial-in">
+        <div className="xl:hidden mt-2 p-3 sm:p-5 rounded-2xl bg-slate-950/95 backdrop-blur-2xl border-t border-slate-800 shadow-2xl animate-spatial-in max-h-[calc(100vh-5rem)] overflow-y-auto">
           <form onSubmit={handleSearchSubmit} className="relative mb-4">
             <input
               type="text"
               placeholder="Search concepts, Dhatus, Nyayas..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2.5 text-xs rounded-xl bg-slate-900/90 text-slate-100 border border-slate-700/80 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
+              className="w-full pl-9 pr-4 py-3 text-xs sm:text-sm rounded-xl bg-slate-900/90 text-slate-100 border border-slate-700/80 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 min-h-[44px]"
             />
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3.5 pointer-events-none" />
           </form>
 
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {navLinks.map((link) => {
               const Icon = link.icon;
               return (
@@ -198,13 +198,13 @@ export default function Navbar() {
                   to={link.path}
                   onClick={() => setMobileMenuOpen(false)}
                   className={({ isActive }) =>
-                    `px-3 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition duration-200 ${isActive
+                    `px-3.5 py-3 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2.5 transition duration-200 min-h-[44px] ${isActive
                       ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
                       : 'bg-slate-900/70 text-slate-300 hover:text-white hover:bg-slate-800/80 border border-slate-800/80'
                     }`
                   }
                 >
-                  <Icon className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <Icon className="w-4 h-4 text-amber-400 shrink-0" />
                   <span className="truncate">{link.name}</span>
                 </NavLink>
               );
@@ -213,13 +213,13 @@ export default function Navbar() {
 
           <div className="mt-4 pt-3.5 border-t border-slate-800/80">
             {isAuthenticated ? (
-              <div className="flex items-center justify-between p-3 rounded-xl bg-slate-900/80 border border-slate-800 shadow-sm">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 shadow-sm gap-3">
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-400 to-amber-600 text-slate-950 font-bold text-xs flex items-center justify-center shrink-0 shadow">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-400 to-amber-600 text-slate-950 font-bold text-xs flex items-center justify-center shrink-0 shadow">
                     {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
                   </div>
                   <div className="min-w-0">
-                    <p className="text-xs font-semibold text-slate-100 truncate">{user?.name}</p>
+                    <p className="text-xs sm:text-sm font-semibold text-slate-100 truncate">{user?.name}</p>
                     <p className="text-[11px] text-slate-400 truncate">{user?.email}</p>
                   </div>
                 </div>
@@ -229,28 +229,28 @@ export default function Navbar() {
                     handleLogout();
                     setMobileMenuOpen(false);
                   }}
-                  className="px-3 py-1.5 rounded-lg text-xs font-medium text-rose-400 hover:bg-rose-500/10 border border-rose-500/20 transition flex items-center gap-1.5 ml-2 shrink-0 cursor-pointer"
+                  className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-rose-400 hover:bg-rose-500/10 border border-rose-500/20 transition flex items-center justify-center gap-2 shrink-0 cursor-pointer min-h-[44px]"
                 >
-                  <LogOut className="w-3.5 h-3.5" />
+                  <LogOut className="w-4 h-4" />
                   <span>Logout</span>
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <Link
                   to="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2 rounded-xl text-xs font-semibold text-center bg-slate-900 border border-slate-700/80 text-slate-200 hover:bg-slate-800 transition flex items-center justify-center gap-1.5"
+                  className="px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold text-center bg-slate-900 border border-slate-700/80 text-slate-200 hover:bg-slate-800 transition flex items-center justify-center gap-2 min-h-[44px]"
                 >
-                  <LogIn className="w-3.5 h-3.5 text-amber-400" />
+                  <LogIn className="w-4 h-4 text-amber-400" />
                   <span>Login</span>
                 </Link>
                 <Link
                   to="/signup"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2 rounded-xl text-xs font-semibold text-center bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:opacity-95 transition flex items-center justify-center gap-1.5 shadow-md shadow-amber-500/20"
+                  className="px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold text-center bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:opacity-95 transition flex items-center justify-center gap-2 shadow-md shadow-amber-500/20 min-h-[44px]"
                 >
-                  <UserPlus className="w-3.5 h-3.5" />
+                  <UserPlus className="w-4 h-4" />
                   <span>Sign Up</span>
                 </Link>
               </div>

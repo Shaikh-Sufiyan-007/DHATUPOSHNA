@@ -32,42 +32,42 @@ export default function Explore3D() {
   };
 
   return (
-    <div className={`space-y-4 animate-spatial-in ${fullscreen ? 'fixed inset-0 z-50 bg-[#030712] p-4 sm:p-6 overflow-y-auto' : 'w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-4'}`}>
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 spatial-dock p-4 sm:p-5 rounded-3xl border border-slate-700/60 shadow-xl">
-        <div className="flex items-center gap-3.5">
+    <div className={`space-y-4 animate-spatial-in ${fullscreen ? 'fixed inset-0 z-50 bg-[#030712] p-3 sm:p-6 overflow-y-auto' : 'w-full max-w-[1920px] mx-auto px-3 sm:px-6 lg:px-10 xl:px-12 py-4'}`}>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 spatial-dock p-3.5 sm:p-5 rounded-3xl border border-slate-700/60 shadow-xl">
+        <div className="flex items-center gap-3">
           <Link
             to="/"
-            className="p-2.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/70 transition shadow-sm cursor-pointer hover:-translate-y-0.5"
+            className="w-11 h-11 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/70 transition shadow-sm cursor-pointer hover:-translate-y-0.5 flex items-center justify-center shrink-0 touch-target"
             title="Back to Home"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
-          <div>
+          <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-cyan-400" />
-              <h1 className="text-xl sm:text-2xl font-bold text-slate-100 font-heading">
+              <Sparkles className="w-4 h-4 text-cyan-400 shrink-0" />
+              <h1 className="text-lg sm:text-2xl font-bold text-slate-100 font-heading truncate">
                 Sapta Dhatu 3D Body Explorer
               </h1>
             </div>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5 truncate">
               Direct anatomical interaction linked with authentic Ayurvedic knowledge bases.
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
           <button
             onClick={() => setFullscreen(!fullscreen)}
-            className="px-4 py-2 rounded-2xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700/80 transition-all duration-200 text-xs font-semibold flex items-center gap-2 shadow-sm cursor-pointer hover:-translate-y-0.5"
+            className="w-full sm:w-auto px-4 py-2.5 rounded-2xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700/80 transition-all duration-200 text-xs font-semibold flex items-center justify-center gap-2 shadow-sm cursor-pointer hover:-translate-y-0.5 min-h-[44px] touch-target"
           >
             {fullscreen ? (
               <>
-                <Minimize2 className="w-3.5 h-3.5 text-amber-400" />
+                <Minimize2 className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                 <span>Exit Fullscreen</span>
               </>
             ) : (
               <>
-                <Maximize2 className="w-3.5 h-3.5 text-cyan-400" />
+                <Maximize2 className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
                 <span>Immersive Fullscreen</span>
               </>
             )}
@@ -86,7 +86,7 @@ export default function Explore3D() {
           <HumanBodyViewer
             selectedDhatu={selectedDhatu}
             onSelectDhatu={handleSelectDhatu}
-            height={fullscreen ? 'calc(100vh - 240px)' : '680px'}
+            height={fullscreen ? 'calc(100vh - 220px)' : 'clamp(420px, 62vh, 680px)'}
             interactive={true}
           />
         </div>

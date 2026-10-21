@@ -54,30 +54,30 @@ export default function DhatvagniDetail() {
   }
 
   return (
-    <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-8 space-y-8 animate-fadeIn">
+    <div className="w-full max-w-[1920px] mx-auto px-3 sm:px-6 lg:px-10 xl:px-12 py-6 sm:py-8 space-y-6 sm:space-y-8 animate-spatial-in">
       <div className="flex items-center justify-between">
         <Link
           to="/dhatvagni"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-amber-300 transition"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-slate-400 hover:text-amber-300 transition min-h-[44px] touch-target py-2.5 px-2"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 text-orange-400 shrink-0" />
           <span>All Dhatvagnis</span>
         </Link>
       </div>
 
-      <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-2xl">
+      <div className="glass-panel p-4 sm:p-6 lg:p-8 rounded-3xl border border-slate-800 shadow-2xl">
         <div className="flex items-center gap-2 mb-2">
-          <Flame className="w-5 h-5 text-orange-400" />
+          <Flame className="w-5 h-5 text-orange-400 shrink-0" />
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-orange-400">
             Metabolic Transformation Bio-Fire
           </span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-100 font-heading mb-1">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-100 font-heading mb-1">
           {data.name}
         </h1>
         {data.sanskritName && (
-          <p className="text-lg font-classical text-amber-300 mb-4">
+          <p className="text-base sm:text-lg font-classical text-amber-300 mb-4">
             {typeof data.sanskritName === 'object'
               ? `${data.sanskritName.devanagari || ''}${data.sanskritName.iast ? ` (${data.sanskritName.iast})` : ''}`
               : data.sanskritName}
