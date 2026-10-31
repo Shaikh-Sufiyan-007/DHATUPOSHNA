@@ -10,6 +10,7 @@ import {
   LogIn
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.jsx';
+import { motion } from 'motion/react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -29,8 +30,8 @@ export default function Login() {
       ? fromLocation
       : fromLocation?.pathname
         ? `${fromLocation.pathname}${fromLocation.search || ''}`
-        : '/';
-  const redirectPath = (!rawPath || rawPath === '/login' || rawPath === '/signup') ? '/' : rawPath;
+        : '/home';
+  const redirectPath = (!rawPath || rawPath === '/login' || rawPath === '/signup' || rawPath === '/') ? '/home' : rawPath;
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -88,17 +89,22 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center px-4 py-12 relative overflow-hidden animate-spatial-in">
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center px-4 py-12 relative overflow-hidden font-body">
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] bg-ice/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[420px] h-[420px] bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="w-full max-w-md relative z-10">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="w-full max-w-md relative z-10"
+      >
         <div className="spatial-dock border border-slate-700/70 rounded-3xl p-8 sm:p-10 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/40 to-transparent" />
+          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-ice/40 to-transparent" />
 
           <div className="text-center mb-8">
-            <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-amber-500 via-amber-400 to-amber-600 p-[1px] shadow-lg shadow-amber-500/25">
-              <div className="w-full h-full bg-slate-950/90 rounded-[15px] flex items-center justify-center text-amber-400">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-ice via-ice-soft to-ice-deep p-[1px] shadow-lg shadow-ice/25">
+              <div className="w-full h-full bg-slate-950/90 rounded-[15px] flex items-center justify-center text-ice">
                 <LogIn className="w-6 h-6" />
               </div>
             </div>
@@ -111,17 +117,21 @@ export default function Login() {
           </div>
 
           {errorMessage && (
-            <div className="mb-6 p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs sm:text-sm flex items-start gap-2.5 animate-spatial-in">
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-6 p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs sm:text-sm flex items-start gap-2.5"
+            >
               <AlertCircle className="w-5 h-5 flex-shrink-0 text-rose-400 mt-0.5" />
               <span>{errorMessage}</span>
-            </div>
+            </motion.div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-5" noValidate>
             <div>
               <label
                 htmlFor="email"
-                className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2"
+                className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2 font-heading"
               >
                 Email Address
               </label>
@@ -143,7 +153,7 @@ export default function Login() {
                   placeholder="vaidya@ayurveda.org"
                   className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-900/90 text-slate-100 placeholder-slate-500 text-sm border transition focus:outline-none focus:ring-1 ${fieldErrors.email
                     ? 'border-red-500/70 focus:border-red-400 focus:ring-red-400/30'
-                    : 'border-slate-700 focus:border-amber-400/80 focus:ring-amber-400/40'
+                    : 'border-slate-700 focus:border-ice/80 focus:ring-ice/40'
                     }`}
                 />
               </div>
@@ -158,7 +168,7 @@ export default function Login() {
               <div className="flex items-center justify-between mb-2">
                 <label
                   htmlFor="password"
-                  className="block text-xs font-semibold uppercase tracking-wider text-slate-300"
+                  className="block text-xs font-semibold uppercase tracking-wider text-slate-300 font-heading"
                 >
                   Password
                 </label>
@@ -181,7 +191,7 @@ export default function Login() {
                   placeholder="••••••••"
                   className={`w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-900/90 text-slate-100 placeholder-slate-500 text-sm border transition focus:outline-none focus:ring-1 ${fieldErrors.password
                     ? 'border-red-500/70 focus:border-red-400 focus:ring-red-400/30'
-                    : 'border-slate-700 focus:border-amber-400/80 focus:ring-amber-400/40'
+                    : 'border-slate-700 focus:border-ice/80 focus:ring-ice/40'
                     }`}
                 />
                 <button
@@ -204,10 +214,11 @@ export default function Login() {
               )}
             </div>
 
-            <button
+            <motion.button
+              whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={submitting}
-              className="w-full py-3 px-4 rounded-xl text-sm font-semibold bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 text-slate-950 hover:opacity-95 shadow-lg shadow-amber-500/20 active:scale-[0.99] transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
+              className="w-full py-3 px-4 rounded-xl text-sm font-semibold font-heading bg-gradient-to-r from-ice-bright via-silver to-silver-deep text-slate-950 hover:opacity-95 shadow-lg shadow-ice/20 active:scale-[0.99] transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
             >
               {submitting ? (
                 <div className="w-5 h-5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
@@ -217,7 +228,7 @@ export default function Login() {
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition" />
                 </>
               )}
-            </button>
+            </motion.button>
           </form>
 
           <div className="mt-8 pt-6 border-t border-slate-800 text-center">
@@ -225,14 +236,14 @@ export default function Login() {
               Don&apos;t have an account?{' '}
               <Link
                 to="/signup"
-                className="font-semibold text-amber-400 hover:text-amber-300 transition"
+                className="font-semibold text-ice hover:text-ice-soft transition font-heading"
               >
                 Create an account
               </Link>
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

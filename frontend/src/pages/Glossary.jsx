@@ -4,7 +4,8 @@ import { glossaryApi } from '../api/index.js';
 import LoadingState from '../components/common/LoadingState.jsx';
 import ErrorState from '../components/common/ErrorState.jsx';
 import EmptyState from '../components/common/EmptyState.jsx';
-import { BookOpen, Search, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { BookOpen, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion } from 'motion/react';
 
 export default function Glossary() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -59,11 +60,11 @@ export default function Glossary() {
   };
 
   return (
-    <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-8 space-y-8 animate-fadeIn">
+    <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-8 space-y-8 font-body">
       <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800">
         <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="w-5 h-5 text-amber-400" />
-          <span className="text-xs uppercase tracking-wider font-semibold text-amber-300">
+          <BookOpen className="w-5 h-5 text-ice" />
+          <span className="text-xs uppercase tracking-wider font-semibold text-ice-soft font-heading">
             संस्कृत पारिभाषिक शब्दावली
           </span>
         </div>
@@ -80,15 +81,17 @@ export default function Glossary() {
             placeholder="Search Sanskrit term or English meaning..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-20 py-2.5 rounded-xl bg-slate-900 text-sm text-slate-100 placeholder-slate-500 border border-slate-700 focus:outline-none focus:border-amber-400"
+            className="w-full pl-10 pr-20 py-2.5 rounded-xl bg-slate-900 text-sm text-slate-100 placeholder-slate-500 border border-slate-700 focus:outline-none focus:border-ice transition"
           />
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" />
-          <button
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
             type="submit"
-            className="absolute right-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 hover:bg-amber-400 text-slate-950 transition"
+            className="absolute right-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-silver hover:bg-ice-bright text-slate-950 font-heading transition"
           >
             Search
-          </button>
+          </motion.button>
         </form>
       </div>
 
@@ -106,9 +109,13 @@ export default function Glossary() {
       {!loading && !error && terms.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {terms.map((item, idx) => (
-            <div
+            <motion.div
               key={item._id || idx}
-              className="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col justify-between"
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: Math.min(idx * 0.04, 0.4) }}
+              whileHover={{ y: -4 }}
+              className="glass-card glass-card-ice rounded-2xl p-6 border border-slate-800 flex flex-col justify-between transition-colors shadow-lg hover:border-ice/40"
             >
               <div>
                 <div className="flex items-start justify-between gap-2 mb-2">
@@ -116,14 +123,14 @@ export default function Glossary() {
                     {item.term || item.name}
                   </h3>
                   {(item.devanagari || item.sanskritName?.devanagari) && (
-                    <span className="text-base font-classical text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/20">
+                    <span className="text-base font-heading font-medium text-ice-soft bg-ice/10 px-2 py-0.5 rounded-md border border-ice/20">
                       {item.devanagari || item.sanskritName?.devanagari}
                     </span>
                   )}
                 </div>
 
                 {(item.transliteration || item.sanskritName?.iast) && (
-                  <p className="text-xs font-mono text-cyan-300 mb-3">
+                  <p className="text-xs text-cyan-300 font-heading font-medium mb-3">
                     [{item.transliteration || item.sanskritName?.iast}]
                   </p>
                 )}
@@ -140,44 +147,46 @@ export default function Glossary() {
               </div>
 
               {item.category && (
-                <div className="pt-3 mt-4 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-500">
+                <div className="pt-3 mt-4 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-500 font-heading">
                   <span className="uppercase tracking-wider">{item.category}</span>
                   {item.relatedConcept && (
-                    <span className="text-amber-400/80 truncate max-w-[120px]">
+                    <span className="text-ice/80 truncate max-w-[120px]">
                       {item.relatedConcept}
                     </span>
                   )}
                 </div>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
       )}
 
       {pagination && pagination.totalPages > 1 && (
         <div className="flex items-center justify-center gap-3 pt-6">
-          <button
+          <motion.button
+            whileTap={{ scale: 0.95 }}
             disabled={page <= 1}
             onClick={() => setPage(page - 1)}
-            className="px-3.5 py-2 rounded-xl text-xs font-medium bg-slate-900 border border-slate-700 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-800 transition flex items-center gap-1"
+            className="px-3.5 py-2 rounded-xl text-xs font-medium bg-slate-900 border border-slate-700 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-800 transition flex items-center gap-1 font-heading"
           >
             <ChevronLeft className="w-4 h-4" />
             <span>Previous</span>
-          </button>
+          </motion.button>
 
           <span className="text-xs text-slate-400">
             Page <span className="font-semibold text-slate-200">{page}</span> of{' '}
             <span className="font-semibold text-slate-200">{pagination.totalPages}</span>
           </span>
 
-          <button
+          <motion.button
+            whileTap={{ scale: 0.95 }}
             disabled={page >= pagination.totalPages}
             onClick={() => setPage(page + 1)}
-            className="px-3.5 py-2 rounded-xl text-xs font-medium bg-slate-900 border border-slate-700 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-800 transition flex items-center gap-1"
+            className="px-3.5 py-2 rounded-xl text-xs font-medium bg-slate-900 border border-slate-700 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-800 transition flex items-center gap-1 font-heading"
           >
             <span>Next</span>
             <ChevronRight className="w-4 h-4" />
-          </button>
+          </motion.button>
         </div>
       )}
     </div>

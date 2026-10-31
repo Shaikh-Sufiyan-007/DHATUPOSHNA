@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { dhatvagniApi } from '../api/index.js';
 import LoadingState from '../components/common/LoadingState.jsx';
 import ErrorState from '../components/common/ErrorState.jsx';
-import { Flame, ArrowRight, Sparkles, Layers, Activity } from 'lucide-react';
+import { Flame, ArrowRight, Sparkles } from 'lucide-react';
+import { motion } from 'motion/react';
 import { getMappingBySlug } from '../utils/dhatuMapping.js';
 
 export default function Dhatvagni() {
@@ -34,17 +35,17 @@ export default function Dhatvagni() {
   return (
     <div className="w-full max-w-[1920px] mx-auto px-3 sm:px-6 lg:px-10 xl:px-12 py-6 sm:py-8 space-y-6 sm:space-y-8 animate-spatial-in">
       <div className="spatial-dock p-4 sm:p-6 lg:p-8 rounded-3xl border border-slate-700/60 shadow-xl relative overflow-hidden">
-        <div className="flex items-center gap-2 mb-2">
-          <Flame className="w-5 h-5 text-orange-400 shrink-0" />
-          <span className="text-xs uppercase tracking-wider font-semibold font-mono text-orange-300">
+        <div className="flex items-center gap-2 mb-2 font-heading">
+          <Flame className="w-5 h-5 text-ice shrink-0" />
+          <span className="text-xs uppercase tracking-wider font-semibold text-ice-soft">
             धात्वाग्नि सिद्धान्त • Cellular Bio-Transformation
           </span>
         </div>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-100 font-heading">
           The Seven Dhatvagnis (Metabolic Bio-Fires)
         </h1>
-        <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-3xl leading-relaxed">
-          Every Dhatu possesses its own specific Agni (cellular/tissue metabolic fire) that performs <span className="text-amber-300 font-semibold font-classical">Sara-Kitta Vibhajana</span> — dividing incoming precursor nutrition (Ahara Rasa / Poshaka Dhatu) into superior tissue substance (Poshya Dhatu), secondary tissues (Upadhatu), subsequent tissue precursor, and metabolic byproducts (Mala).
+        <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-3xl leading-relaxed font-body">
+          Every Dhatu possesses its own specific Agni (cellular/tissue metabolic fire) that performs <span className="text-ice-soft font-semibold font-heading">Sara-Kitta Vibhajana</span> — dividing incoming precursor nutrition (Ahara Rasa / Poshaka Dhatu) into superior tissue substance (Poshya Dhatu), secondary tissues (Upadhatu), subsequent tissue precursor, and metabolic byproducts (Mala).
         </p>
       </div>
 
@@ -58,45 +59,48 @@ export default function Dhatvagni() {
             const mapping = getMappingBySlug(dhatuSlug);
 
             return (
-              <div
+              <motion.div
                 key={item._id || idx}
-                className="glass-card rounded-3xl p-5 sm:p-7 border border-slate-700/60 flex flex-col justify-between group hover:border-orange-500/40 transition-all duration-300 relative overflow-hidden"
+                whileHover={{ y: -4, scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                transition={{ duration: 0.22, ease: 'easeOut' }}
+                className="glass-card glass-card-ice rounded-3xl p-5 sm:p-7 border border-slate-700/60 flex flex-col justify-between group hover:border-ice/40 transition-all duration-300 relative overflow-hidden"
               >
-                <div className="absolute -top-10 -right-10 w-28 h-28 bg-orange-500/10 rounded-full blur-2xl group-hover:bg-orange-500/20 transition-all duration-500 pointer-events-none" />
+                <div className="absolute -top-10 -right-10 w-28 h-28 bg-ice/10 rounded-full blur-2xl group-hover:bg-ice/20 transition-all duration-500 pointer-events-none" />
 
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-4">
-                    <span className="w-8 h-8 rounded-xl bg-orange-500/15 border border-orange-500/35 flex items-center justify-center text-orange-400 shadow-md shrink-0">
+                    <span className="w-8 h-8 rounded-xl bg-ice/15 border border-ice/35 flex items-center justify-center text-ice shadow-md shrink-0">
                       <Flame className="w-4 h-4" />
                     </span>
-                    <span className="text-[11px] font-mono uppercase tracking-wider font-semibold px-2.5 py-0.5 rounded-full bg-slate-900/90 text-slate-300 border border-slate-700/70">
+                    <span className="text-[11px] font-heading uppercase tracking-wider font-semibold px-2.5 py-0.5 rounded-full bg-slate-900 text-slate-300 border border-slate-700/80">
                       Agni #{idx + 1}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-slate-100 font-heading group-hover:text-amber-300 transition-colors mb-1">
+                  <h3 className="text-xl font-bold text-slate-100 font-heading group-hover:text-ice-soft transition-colors mb-1">
                     {item.name}
                   </h3>
                   {item.sanskritName && (
-                    <p className="text-xs font-classical text-amber-300/80 mb-3">
+                    <p className="text-xs font-heading text-ice-soft/90 mb-3">
                       {typeof item.sanskritName === 'object'
                         ? `${item.sanskritName.devanagari || ''}${item.sanskritName.iast ? ` (${item.sanskritName.iast})` : ''}`
                         : item.sanskritName}
                     </p>
                   )}
 
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed line-clamp-3 mb-4">
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed line-clamp-3 mb-4 font-body">
                     {item.userFriendlyLayer?.summary || item.description || item.metabolicRole || 'Tissue-specific metabolic fire.'}
                   </p>
 
-                  <div className="space-y-2 text-xs bg-slate-900/70 p-3 sm:p-3.5 rounded-2xl border border-slate-800 mb-4">
+                  <div className="space-y-2 text-xs bg-slate-900/70 p-3 sm:p-3.5 rounded-2xl border border-slate-800 mb-4 font-body">
                     <div className="flex justify-between items-center gap-2">
-                      <span className="text-slate-400 font-semibold text-[11px] uppercase tracking-wider shrink-0">Poshya:</span>
+                      <span className="text-slate-400 font-semibold text-[11px] uppercase tracking-wider shrink-0 font-heading">Poshya:</span>
                       <span className="text-slate-200 font-medium truncate max-w-[180px]">{item.poshyaDhatu || item.metabolicFractions?.prasadaBhaga?.nourishesSelf || item.dhatu?.name || 'Target Tissue'}</span>
                     </div>
                     {(item.upadhatu || item.metabolicFractions?.prasadaBhaga?.upadhatusFormed) && (
                       <div className="flex justify-between items-center gap-2">
-                        <span className="text-cyan-400 font-semibold text-[11px] uppercase tracking-wider shrink-0">Upadhatu:</span>
+                        <span className="text-cyan-400 font-semibold text-[11px] uppercase tracking-wider shrink-0 font-heading">Upadhatu:</span>
                         <span className="text-slate-200 truncate max-w-[180px]">
                           {item.upadhatu || (Array.isArray(item.metabolicFractions?.prasadaBhaga?.upadhatusFormed) ? item.metabolicFractions.prasadaBhaga.upadhatusFormed.join(', ') : String(item.metabolicFractions?.prasadaBhaga?.upadhatusFormed))}
                         </span>
@@ -104,7 +108,7 @@ export default function Dhatvagni() {
                     )}
                     {(item.mala || item.metabolicFractions?.kittaBhaga?.wasteProduced) && (
                       <div className="flex justify-between items-center gap-2">
-                        <span className="text-amber-400 font-semibold text-[11px] uppercase tracking-wider shrink-0">Mala:</span>
+                        <span className="text-ice font-semibold text-[11px] uppercase tracking-wider shrink-0 font-heading">Mala:</span>
                         <span className="text-slate-200 truncate max-w-[180px]">
                           {item.mala || item.metabolicFractions?.kittaBhaga?.wasteProduced}
                         </span>
@@ -113,11 +117,11 @@ export default function Dhatvagni() {
                   </div>
                 </div>
 
-                <div className="pt-3.5 border-t border-slate-800/80 flex items-center justify-between gap-2 mt-auto">
+                <div className="pt-3.5 border-t border-slate-800/80 flex items-center justify-between gap-2 mt-auto font-heading">
                   {dhatuSlug && (
                     <Link
                       to={`/explore?dhatu=${dhatuSlug}`}
-                      className="text-xs text-cyan-300 hover:text-cyan-200 font-semibold flex items-center gap-1.5 px-3 py-2 rounded-xl hover:bg-cyan-500/10 transition min-h-[40px] touch-target"
+                      className="text-xs text-cyan-300 hover:text-cyan-200 font-semibold flex items-center gap-1.5 px-3 py-2 rounded-xl hover:bg-cyan-500/10 transition min-h-[40px] touch-target active:scale-95"
                     >
                       <Sparkles className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
                       <span>3D Nexus</span>
@@ -125,13 +129,13 @@ export default function Dhatvagni() {
                   )}
                   <Link
                     to={`/dhatvagni/${item.slug || item._id}`}
-                    className="text-xs font-bold px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 hover:border-amber-500/60 transition-all duration-200 hover:-translate-y-0.5 flex items-center gap-1 ml-auto shadow-sm min-h-[40px] touch-target"
+                    className="text-xs font-bold px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-ice-soft border border-ice/30 hover:border-ice/60 transition-all duration-200 hover:-translate-y-0.5 flex items-center gap-1 ml-auto shadow-sm min-h-[40px] touch-target active:scale-95"
                   >
                     <span>Full Analysis</span>
                     <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>

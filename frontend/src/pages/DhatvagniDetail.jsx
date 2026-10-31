@@ -4,7 +4,7 @@ import { dhatvagniApi } from '../api/index.js';
 import LoadingState from '../components/common/LoadingState.jsx';
 import ErrorState from '../components/common/ErrorState.jsx';
 import DisclaimerBanner from '../components/common/DisclaimerBanner.jsx';
-import { ArrowLeft, Flame, Sparkles, Activity, Layers, BookMarked, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Flame, Activity, Layers, BookMarked } from 'lucide-react';
 
 export default function DhatvagniDetail() {
   const { id } = useParams();
@@ -45,7 +45,7 @@ export default function DhatvagniDetail() {
           onRetry={() => window.location.reload()}
         />
         <div className="text-center mt-6">
-          <Link to="/dhatvagni" className="text-xs text-amber-400 hover:underline">
+          <Link to="/dhatvagni" className="text-xs text-ice hover:underline font-heading">
             ← Return to all Dhatvagnis
           </Link>
         </div>
@@ -55,20 +55,20 @@ export default function DhatvagniDetail() {
 
   return (
     <div className="w-full max-w-[1920px] mx-auto px-3 sm:px-6 lg:px-10 xl:px-12 py-6 sm:py-8 space-y-6 sm:space-y-8 animate-spatial-in">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between font-heading">
         <Link
           to="/dhatvagni"
-          className="inline-flex items-center gap-2 text-xs font-semibold text-slate-400 hover:text-amber-300 transition min-h-[44px] touch-target py-2.5 px-2"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-slate-400 hover:text-ice-soft transition min-h-[44px] touch-target py-2.5 px-2 active:scale-95"
         >
-          <ArrowLeft className="w-4 h-4 text-orange-400 shrink-0" />
+          <ArrowLeft className="w-4 h-4 text-ice shrink-0" />
           <span>All Dhatvagnis</span>
         </Link>
       </div>
 
       <div className="glass-panel p-4 sm:p-6 lg:p-8 rounded-3xl border border-slate-800 shadow-2xl">
-        <div className="flex items-center gap-2 mb-2">
-          <Flame className="w-5 h-5 text-orange-400 shrink-0" />
-          <span className="text-xs font-mono font-bold uppercase tracking-wider text-orange-400">
+        <div className="flex items-center gap-2 mb-2 font-heading">
+          <Flame className="w-5 h-5 text-ice shrink-0" />
+          <span className="text-xs font-bold uppercase tracking-wider text-ice">
             Metabolic Transformation Bio-Fire
           </span>
         </div>
@@ -77,7 +77,7 @@ export default function DhatvagniDetail() {
           {data.name}
         </h1>
         {data.sanskritName && (
-          <p className="text-base sm:text-lg font-classical text-amber-300 mb-4">
+          <p className="text-base sm:text-lg font-heading text-ice-soft mb-4">
             {typeof data.sanskritName === 'object'
               ? `${data.sanskritName.devanagari || ''}${data.sanskritName.iast ? ` (${data.sanskritName.iast})` : ''}`
               : data.sanskritName}
@@ -85,7 +85,7 @@ export default function DhatvagniDetail() {
         )}
 
         {(data.userFriendlyLayer?.summary || data.sourceAcademicLayer?.scholarlyExplanation || data.description) && (
-          <p className="text-sm text-slate-300 leading-relaxed mb-6 bg-slate-900/40 p-4 rounded-xl border border-slate-800">
+          <p className="text-sm text-slate-300 leading-relaxed mb-6 bg-slate-900/40 p-4 rounded-xl border border-slate-800 font-body">
             {data.userFriendlyLayer?.summary || data.sourceAcademicLayer?.scholarlyExplanation || data.description}
           </p>
         )}
@@ -93,11 +93,11 @@ export default function DhatvagniDetail() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           {(data.userFriendlyLayer?.simplifiedExplanation || data.metabolicRole) && (
             <div className="glass-panel p-5 rounded-2xl border border-slate-800">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-amber-300 mb-2 flex items-center gap-1.5">
-                <Activity className="w-4 h-4 text-amber-400" />
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-ice-soft mb-2 flex items-center gap-1.5 font-heading">
+                <Activity className="w-4 h-4 text-ice" />
                 <span>Metabolic Role & Synthesis</span>
               </h3>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-body">
                 {data.userFriendlyLayer?.simplifiedExplanation ||
                   (typeof data.metabolicRole === 'object' ? JSON.stringify(data.metabolicRole) : data.metabolicRole)}
               </p>
@@ -106,16 +106,16 @@ export default function DhatvagniDetail() {
 
           {(data.metabolicFractions || data.divisionMechanisms) && (
             <div className="glass-panel p-5 rounded-2xl border border-slate-800">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-cyan-300 mb-2 flex items-center gap-1.5">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-cyan-400 mb-2 flex items-center gap-1.5 font-heading">
                 <Layers className="w-4 h-4 text-cyan-400" />
                 <span>Sara-Kitta Vibhajana (Metabolic Fractions)</span>
               </h3>
               {data.metabolicFractions ? (
-                <div className="space-y-2 text-xs sm:text-sm text-slate-300">
+                <div className="space-y-2 text-xs sm:text-sm text-slate-300 font-body">
                   {data.metabolicFractions.prasadaBhaga && (
                     <div>
-                      <span className="text-emerald-400 font-semibold block text-[11px] uppercase">Prasada Bhaga (Nutrient Essence):</span>
-                      <p>{data.metabolicFractions.prasadaBhaga.nourishesSelf}</p>
+                      <span className="text-cyan-400 font-semibold block text-[11px] uppercase font-heading">Prasada Bhaga (Nutrient Essence):</span>
+                      <p className="text-slate-200">{data.metabolicFractions.prasadaBhaga.nourishesSelf}</p>
                       {data.metabolicFractions.prasadaBhaga.seedsNextDhatu && (
                         <p className="text-slate-400 text-xs mt-0.5">{data.metabolicFractions.prasadaBhaga.seedsNextDhatu}</p>
                       )}
@@ -128,8 +128,8 @@ export default function DhatvagniDetail() {
                   )}
                   {data.metabolicFractions.kittaBhaga && (
                     <div className="pt-2 border-t border-slate-800">
-                      <span className="text-amber-400 font-semibold block text-[11px] uppercase">Kitta Bhaga (Byproduct):</span>
-                      <p>{data.metabolicFractions.kittaBhaga.wasteProduced}</p>
+                      <span className="text-ice font-semibold block text-[11px] uppercase font-heading">Kitta Bhaga (Byproduct):</span>
+                      <p className="text-slate-200">{data.metabolicFractions.kittaBhaga.wasteProduced}</p>
                       {data.metabolicFractions.kittaBhaga.description && (
                         <p className="text-slate-400 text-xs mt-0.5">{data.metabolicFractions.kittaBhaga.description}</p>
                       )}
@@ -137,7 +137,7 @@ export default function DhatvagniDetail() {
                   )}
                 </div>
               ) : (
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-body">
                   {typeof data.divisionMechanisms === 'object'
                     ? JSON.stringify(data.divisionMechanisms)
                     : data.divisionMechanisms}
@@ -148,17 +148,17 @@ export default function DhatvagniDetail() {
         </div>
 
         {(data.clinicalRelevance || data.clinicalStates) && (
-          <div className="glass-panel p-5 rounded-2xl border border-slate-800 mb-6">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-rose-300 mb-2">
+          <div className="glass-panel p-5 rounded-2xl border border-slate-800 mb-6 font-body">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-rose-300 mb-2 font-heading">
               Clinical Variations (Mandagni & Tikshnagni States)
             </h3>
             {data.clinicalRelevance ? (
               <div className="space-y-2 text-xs sm:text-sm text-slate-300">
                 {data.clinicalRelevance.mandagniEffects && (
-                  <p><span className="text-rose-400 font-semibold">Mandagni (Hypo-functioning): </span>{data.clinicalRelevance.mandagniEffects}</p>
+                  <p><span className="text-rose-400 font-semibold font-heading">Mandagni (Hypo-functioning): </span>{data.clinicalRelevance.mandagniEffects}</p>
                 )}
                 {data.clinicalRelevance.tikshnagniEffects && (
-                  <p><span className="text-amber-400 font-semibold">Tikshnagni (Hyper-functioning): </span>{data.clinicalRelevance.tikshnagniEffects}</p>
+                  <p><span className="text-ice font-semibold font-heading">Tikshnagni (Hyper-functioning): </span>{data.clinicalRelevance.tikshnagniEffects}</p>
                 )}
               </div>
             ) : (
@@ -173,9 +173,9 @@ export default function DhatvagniDetail() {
 
         {((data.sourceAcademicLayer?.classicalReferences && data.sourceAcademicLayer.classicalReferences.length > 0) ||
           (data.classicalReferences && data.classicalReferences.length > 0)) && (
-            <div className="pt-4 border-t border-slate-800">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
-                <BookMarked className="w-4 h-4 text-amber-400" />
+            <div className="pt-4 border-t border-slate-800 font-body">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5 font-heading">
+                <BookMarked className="w-4 h-4 text-ice" />
                 <span>Classical Citations</span>
               </h3>
               <div className="space-y-2 text-xs text-slate-300">
@@ -183,11 +183,11 @@ export default function DhatvagniDetail() {
                   const refObj = ref.reference || ref;
                   return (
                     <div key={i} className="p-3 rounded-lg bg-slate-900/60 border border-slate-800">
-                      <span className="font-semibold text-amber-300">
+                      <span className="font-semibold text-ice-soft font-heading">
                         {refObj.classicalDetails?.samhita || refObj.title || ref.context || 'Classical Source'}
                       </span>
                       {(refObj.classicalDetails?.shlokaNumber || ref.specificVerse) && (
-                        <span className="ml-2 text-slate-500 font-mono">
+                        <span className="ml-2 text-slate-500 font-heading">
                           {refObj.classicalDetails?.shlokaNumber || ref.specificVerse}
                         </span>
                       )}

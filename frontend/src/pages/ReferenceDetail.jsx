@@ -4,7 +4,8 @@ import { referenceApi } from '../api/index.js';
 import LoadingState from '../components/common/LoadingState.jsx';
 import ErrorState from '../components/common/ErrorState.jsx';
 import DisclaimerBanner from '../components/common/DisclaimerBanner.jsx';
-import { ArrowLeft, Award, BookMarked, ExternalLink, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Award, ExternalLink } from 'lucide-react';
+import { motion } from 'motion/react';
 
 export default function ReferenceDetail() {
   const { id } = useParams();
@@ -45,7 +46,7 @@ export default function ReferenceDetail() {
           onRetry={() => window.location.reload()}
         />
         <div className="text-center mt-6">
-          <Link to="/references" className="text-xs text-amber-400 hover:underline">
+          <Link to="/references" className="text-xs text-ice hover:underline font-heading">
             ← Return to all references
           </Link>
         </div>
@@ -58,11 +59,16 @@ export default function ReferenceDetail() {
   const academic = data.academicDetails || {};
 
   return (
-    <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-8 space-y-8 animate-fadeIn">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-8 space-y-8 font-body"
+    >
       <div className="flex items-center justify-between">
         <Link
           to="/references"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-amber-300 transition"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-ice-soft transition font-heading"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>All References</span>
@@ -71,8 +77,8 @@ export default function ReferenceDetail() {
 
       <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-2xl">
         <div className="flex items-center gap-2 mb-2">
-          <Award className="w-5 h-5 text-amber-400" />
-          <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-400">
+          <Award className="w-5 h-5 text-ice" />
+          <span className="text-xs font-heading font-bold uppercase tracking-wider text-ice">
             {data.sourceType?.replace(/_/g, ' ') || 'Citation Record'}
           </span>
         </div>
@@ -82,14 +88,14 @@ export default function ReferenceDetail() {
         </h1>
 
         {data.content?.shloka && (
-          <div className="p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-100 mb-6 font-classical text-base leading-relaxed text-center">
+          <div className="p-5 rounded-2xl bg-ice/10 border border-ice/30 text-ice-bright mb-6 font-heading text-base leading-relaxed text-center">
             "{data.content.shloka}"
           </div>
         )}
 
         {data.content?.englishTranslation && (
           <div className="mb-6 p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2 font-heading">
               English Translation & Synthesis
             </h3>
             <p className="text-sm text-slate-200 leading-relaxed">
@@ -103,25 +109,25 @@ export default function ReferenceDetail() {
             <>
               {classical.samhita && (
                 <div className="p-3.5 rounded-xl bg-slate-900/40 border border-slate-800 text-xs">
-                  <span className="text-slate-500 block mb-0.5">Samhita:</span>
+                  <span className="text-slate-500 block mb-0.5 font-heading">Samhita:</span>
                   <span className="font-semibold text-slate-200">{classical.samhita}</span>
                 </div>
               )}
               {classical.sthana && (
                 <div className="p-3.5 rounded-xl bg-slate-900/40 border border-slate-800 text-xs">
-                  <span className="text-slate-500 block mb-0.5">Sthana (Section):</span>
+                  <span className="text-slate-500 block mb-0.5 font-heading">Sthana (Section):</span>
                   <span className="font-semibold text-slate-200">{classical.sthana}</span>
                 </div>
               )}
               {classical.adhyayaNumber && (
                 <div className="p-3.5 rounded-xl bg-slate-900/40 border border-slate-800 text-xs">
-                  <span className="text-slate-500 block mb-0.5">Adhyaya (Chapter):</span>
+                  <span className="text-slate-500 block mb-0.5 font-heading">Adhyaya (Chapter):</span>
                   <span className="font-semibold text-slate-200">{classical.adhyayaNumber} {classical.adhyayaName ? `(${classical.adhyayaName})` : ''}</span>
                 </div>
               )}
               {classical.shlokaNumber && (
                 <div className="p-3.5 rounded-xl bg-slate-900/40 border border-slate-800 text-xs">
-                  <span className="text-slate-500 block mb-0.5">Shloka (Verse):</span>
+                  <span className="text-slate-500 block mb-0.5 font-heading">Shloka (Verse):</span>
                   <span className="font-semibold text-slate-200">{classical.shlokaNumber}</span>
                 </div>
               )}
@@ -130,26 +136,26 @@ export default function ReferenceDetail() {
             <>
               {academic.authors && academic.authors.length > 0 && (
                 <div className="p-3.5 rounded-xl bg-slate-900/40 border border-slate-800 text-xs">
-                  <span className="text-slate-500 block mb-0.5">Authors:</span>
+                  <span className="text-slate-500 block mb-0.5 font-heading">Authors:</span>
                   <span className="font-semibold text-slate-200">{academic.authors.join(', ')}</span>
                 </div>
               )}
               {academic.publisher && (
                 <div className="p-3.5 rounded-xl bg-slate-900/40 border border-slate-800 text-xs">
-                  <span className="text-slate-500 block mb-0.5">Publisher / Organization:</span>
+                  <span className="text-slate-500 block mb-0.5 font-heading">Publisher / Organization:</span>
                   <span className="font-semibold text-slate-200">{academic.publisher}</span>
                 </div>
               )}
               {academic.publicationYear && (
                 <div className="p-3.5 rounded-xl bg-slate-900/40 border border-slate-800 text-xs">
-                  <span className="text-slate-500 block mb-0.5">Year:</span>
+                  <span className="text-slate-500 block mb-0.5 font-heading">Year:</span>
                   <span className="font-semibold text-slate-200">{academic.publicationYear}</span>
                 </div>
               )}
               {academic.doi && (
                 <div className="p-3.5 rounded-xl bg-slate-900/40 border border-slate-800 text-xs">
-                  <span className="text-slate-500 block mb-0.5">DOI:</span>
-                  <span className="font-semibold font-mono text-cyan-300">{academic.doi}</span>
+                  <span className="text-slate-500 block mb-0.5 font-heading">DOI:</span>
+                  <span className="font-semibold text-cyan-300 font-heading">{academic.doi}</span>
                 </div>
               )}
             </>
@@ -158,12 +164,12 @@ export default function ReferenceDetail() {
 
         {data.url && (
           <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
-            <span className="text-xs text-slate-400">Direct Online Repository:</span>
+            <span className="text-xs text-slate-400 font-heading">Direct Online Repository:</span>
             <a
               href={data.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-semibold px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 transition inline-flex items-center gap-1.5 shadow"
+              className="text-xs font-semibold px-4 py-2 rounded-xl bg-silver hover:bg-ice-bright text-slate-950 transition inline-flex items-center gap-1.5 shadow font-heading"
             >
               <span>Visit External Source</span>
               <ExternalLink className="w-3.5 h-3.5" />
@@ -173,6 +179,6 @@ export default function ReferenceDetail() {
       </div>
 
       <DisclaimerBanner />
-    </div>
+    </motion.div>
   );
 }

@@ -5,6 +5,7 @@ import LoadingState from '../components/common/LoadingState.jsx';
 import ErrorState from '../components/common/ErrorState.jsx';
 import DisclaimerBanner from '../components/common/DisclaimerBanner.jsx';
 import { ArrowLeft, BookOpen, BookMarked } from 'lucide-react';
+import { motion } from 'motion/react';
 
 export default function ConceptDetail() {
   const { id } = useParams();
@@ -45,7 +46,7 @@ export default function ConceptDetail() {
           onRetry={() => window.location.reload()}
         />
         <div className="text-center mt-6">
-          <Link to="/concepts" className="text-xs text-amber-400 hover:underline">
+          <Link to="/concepts" className="text-xs text-ice hover:underline">
             ← Return to all concepts
           </Link>
         </div>
@@ -54,11 +55,16 @@ export default function ConceptDetail() {
   }
 
   return (
-    <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-8 space-y-8 animate-fadeIn">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-8 space-y-8 font-body"
+    >
       <div className="flex items-center justify-between">
         <Link
           to="/concepts"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-amber-300 transition"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-ice-soft transition"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>All Concepts</span>
@@ -68,7 +74,7 @@ export default function ConceptDetail() {
       <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-2xl">
         <div className="flex items-center gap-2 mb-2">
           <BookOpen className="w-5 h-5 text-purple-400" />
-          <span className="text-xs font-mono font-bold uppercase tracking-wider text-purple-400">
+          <span className="text-xs font-heading font-bold uppercase tracking-wider text-purple-400">
             {data.category || 'Ayurvedic Doctrine'}
           </span>
         </div>
@@ -77,7 +83,7 @@ export default function ConceptDetail() {
           {data.name}
         </h1>
         {data.sanskritName && (
-          <p className="text-xl font-classical text-amber-300 mb-4">
+          <p className="text-xl font-heading text-ice-soft mb-4">
             {typeof data.sanskritName === 'object'
               ? `${data.sanskritName.devanagari || ''}${data.sanskritName.iast ? ` (${data.sanskritName.iast})` : ''}`
               : data.sanskritName}
@@ -92,7 +98,7 @@ export default function ConceptDetail() {
 
         {(data.learnerSummary?.simplifiedExplanation || data.modernPhysiologicalPerspective || data.details) && (
           <div className="mb-6 p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-purple-300 mb-2">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-purple-300 mb-2 font-heading">
               Philosophical & Physiological Dimensions
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
@@ -105,7 +111,7 @@ export default function ConceptDetail() {
 
         {(data.relationshipToDhatus || data.dhatuRelevance) && (
           <div className="mb-6 p-4 rounded-xl bg-cyan-950/20 border border-cyan-500/20">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-cyan-300 mb-2">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-cyan-300 mb-2 font-heading">
               Significance to Sapta Dhatu Nourishment
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
@@ -117,8 +123,8 @@ export default function ConceptDetail() {
         {((data.classicalReferences && data.classicalReferences.length > 0) ||
           (data.references && data.references.length > 0)) && (
             <div className="pt-4 border-t border-slate-800">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
-                <BookMarked className="w-4 h-4 text-amber-400" />
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5 font-heading">
+                <BookMarked className="w-4 h-4 text-ice" />
                 <span>Classical References</span>
               </h3>
               <div className="space-y-2 text-xs text-slate-300">
@@ -126,11 +132,11 @@ export default function ConceptDetail() {
                   const refObj = ref.reference || ref;
                   return (
                     <div key={i} className="p-3 rounded-lg bg-slate-900/60 border border-slate-800">
-                      <span className="font-semibold text-amber-300">
+                      <span className="font-semibold text-ice-soft font-heading">
                         {refObj.classicalDetails?.samhita || refObj.title || ref.text || ref.source || 'Classical Source'}
                       </span>
                       {(refObj.classicalDetails?.shlokaNumber || ref.specificVerse || ref.chapter) && (
-                        <span className="ml-2 text-slate-500 font-mono">
+                        <span className="ml-2 text-slate-500 font-body">
                           {refObj.classicalDetails?.shlokaNumber || ref.specificVerse || (ref.chapter ? `Ch. ${ref.chapter}` : '')}
                         </span>
                       )}
@@ -146,6 +152,6 @@ export default function ConceptDetail() {
       </div>
 
       <DisclaimerBanner />
-    </div>
+    </motion.div>
   );
 }

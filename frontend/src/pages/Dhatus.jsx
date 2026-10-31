@@ -44,22 +44,22 @@ export default function Dhatus() {
         <div>
           <div className="flex items-center gap-2 mb-2">
             <Layers className="w-5 h-5 text-amber-400 shrink-0" />
-            <span className="text-xs uppercase tracking-wider font-semibold font-mono text-amber-300">
+            <span className="text-xs uppercase tracking-wider font-semibold font-heading text-amber-300">
               सप्त धातु विज्ञान • Spatial Anatomy
             </span>
           </div>
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-100 font-heading">
             The Sapta Dhatus (Seven Bodily Tissues)
           </h1>
-          <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed font-body">
             In Ayurvedic physiology, the physical body is sustained by seven fundamental structural tissues formed in a sequential metabolic continuum (Dhatu Parinama).
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 shrink-0">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 shrink-0 font-heading">
           <button
             onClick={() => setShowComparison(!showComparison)}
-            className={`px-4 py-2.5 rounded-2xl text-xs font-bold border transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer hover:-translate-y-0.5 min-h-[44px] touch-target ${showComparison
+            className={`px-4 py-2.5 rounded-2xl text-xs font-bold border transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer hover:-translate-y-0.5 active:scale-95 min-h-[44px] touch-target ${showComparison
                 ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-lg shadow-amber-500/20'
                 : 'bg-slate-900/90 text-slate-200 border-slate-700 hover:bg-slate-800'
               }`}
@@ -70,7 +70,7 @@ export default function Dhatus() {
 
           <Link
             to="/explore"
-            className="px-4 py-2.5 rounded-2xl text-xs font-bold bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 hover:opacity-95 shadow-lg shadow-amber-500/20 hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-1.5 min-h-[44px] touch-target"
+            className="px-4 py-2.5 rounded-2xl text-xs font-bold bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 hover:opacity-95 shadow-lg shadow-amber-500/20 hover:-translate-y-0.5 active:scale-95 transition-all duration-200 flex items-center justify-center gap-1.5 min-h-[44px] touch-target"
           >
             <Sparkles className="w-4 h-4 shrink-0" />
             <span>3D Viewport</span>
@@ -88,14 +88,14 @@ export default function Dhatus() {
               <Table2 className="w-5 h-5 text-amber-400 shrink-0" />
               <span>Sapta Dhatu Comparative Matrix</span>
             </h2>
-            <span className="text-[11px] font-mono text-slate-400 md:hidden">
+            <span className="text-[11px] font-heading text-slate-400 md:hidden">
               Swipe horizontally to view full matrix →
             </span>
           </div>
 
-          <table className="w-full text-left text-xs border-collapse min-w-[720px]">
+          <table className="w-full text-left text-xs border-collapse min-w-[720px] font-body">
             <thead>
-              <tr className="border-b border-slate-700 bg-slate-900/70 text-slate-300">
+              <tr className="border-b border-slate-700 bg-slate-900/70 text-slate-300 font-heading">
                 <th className="p-3 sm:p-3.5 font-bold uppercase tracking-wider text-[11px]">Order</th>
                 <th className="p-3 sm:p-3.5 font-bold uppercase tracking-wider text-[11px]">Dhatu Name</th>
                 <th className="p-3 sm:p-3.5 font-bold uppercase tracking-wider text-[11px]">Sanskrit</th>
@@ -108,9 +108,9 @@ export default function Dhatus() {
             <tbody className="divide-y divide-slate-800/80 text-slate-300">
               {(comparison.matrix || dhatus).map((row, i) => (
                 <tr key={row._id || i} className="hover:bg-slate-800/50 transition duration-150">
-                  <td className="p-3 sm:p-3.5 font-mono font-extrabold text-amber-400">#{row.order || i + 1}</td>
-                  <td className="p-3 sm:p-3.5 font-bold text-slate-100 whitespace-nowrap">{row.name}</td>
-                  <td className="p-3 sm:p-3.5 font-classical text-amber-300 whitespace-nowrap">
+                  <td className="p-3 sm:p-3.5 font-heading font-extrabold text-amber-400">#{row.order || i + 1}</td>
+                  <td className="p-3 sm:p-3.5 font-bold text-slate-100 whitespace-nowrap font-heading">{row.name}</td>
+                  <td className="p-3 sm:p-3.5 font-heading text-amber-300 whitespace-nowrap">
                     {typeof row.sanskritName === 'object'
                       ? row.sanskritName?.devanagari || row.sanskritName?.iast || '-'
                       : (row.sanskritName || '-')}
@@ -118,7 +118,7 @@ export default function Dhatus() {
                   <td className="p-3 sm:p-3.5 max-w-xs">{row.primaryFunction || row.functions?.[0]?.meaning || row.functions?.[0]?.description || '-'}</td>
                   <td className="p-3 sm:p-3.5 text-cyan-300 font-medium">{Array.isArray(row.upadhatus) ? row.upadhatus.map(u => typeof u === 'object' ? u.name : u).join(', ') : row.upadhatu || '-'}</td>
                   <td className="p-3 sm:p-3.5 text-amber-300/80 font-medium">{Array.isArray(row.malas) ? row.malas.map(m => typeof m === 'object' ? m.name : m).join(', ') : row.mala || '-'}</td>
-                  <td className="p-3 sm:p-3.5 whitespace-nowrap">
+                  <td className="p-3 sm:p-3.5 whitespace-nowrap font-heading">
                     <Link
                       to={`/dhatus/${row.slug || row._id}`}
                       className="text-amber-400 hover:text-amber-300 font-semibold inline-flex items-center gap-1 hover:underline min-h-[32px] py-1"

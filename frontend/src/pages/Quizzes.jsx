@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { quizApi } from '../api/index.js';
 import LoadingState from '../components/common/LoadingState.jsx';
 import ErrorState from '../components/common/ErrorState.jsx';
-import { HelpCircle, Award, CheckCircle2, ChevronRight, Zap } from 'lucide-react';
+import { HelpCircle, Award, ChevronRight } from 'lucide-react';
+import { motion } from 'motion/react';
 
 export default function Quizzes() {
   const [quizzes, setQuizzes] = useState([]);
@@ -50,7 +51,7 @@ export default function Quizzes() {
         return 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30';
       case 'intermediate':
       case 'medium':
-        return 'text-amber-400 bg-amber-500/10 border-amber-500/30';
+        return 'text-ice bg-ice/10 border-ice/30';
       case 'advanced':
       case 'hard':
         return 'text-rose-400 bg-rose-500/10 border-rose-500/30';
@@ -60,12 +61,12 @@ export default function Quizzes() {
   };
 
   return (
-    <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-8 space-y-8 animate-fadeIn">
+    <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-8 space-y-8 font-body">
       <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <div className="flex items-center gap-2 mb-2">
             <HelpCircle className="w-5 h-5 text-pink-400" />
-            <span className="text-xs uppercase tracking-wider font-semibold text-pink-300">
+            <span className="text-xs uppercase tracking-wider font-semibold text-pink-300 font-heading">
               ज्ञान परीक्षा
             </span>
           </div>
@@ -77,12 +78,12 @@ export default function Quizzes() {
           </p>
         </div>
 
-        <div className="glass-panel-elevated p-4 sm:p-5 rounded-2xl border border-amber-500/30 min-w-[200px] text-center shrink-0">
-          <div className="flex items-center justify-center gap-1.5 text-xs text-amber-300 font-semibold mb-1">
-            <Award className="w-4 h-4 text-amber-400" />
+        <div className="glass-panel-elevated p-4 sm:p-5 rounded-2xl border border-ice/30 min-w-[200px] text-center shrink-0">
+          <div className="flex items-center justify-center gap-1.5 text-xs text-ice-soft font-semibold mb-1 font-heading">
+            <Award className="w-4 h-4 text-ice" />
             <span>Session Score</span>
           </div>
-          <div className="text-3xl font-bold font-mono text-slate-100">
+          <div className="text-3xl font-bold font-heading text-slate-100">
             {sessionScore.correct} / {sessionScore.total}
           </div>
           <p className="text-[11px] text-slate-400 mt-0.5">
@@ -97,16 +98,17 @@ export default function Quizzes() {
         {categories.map((cat) => {
           const isSelected = (cat === 'All' && !categoryFilter) || categoryFilter === cat;
           return (
-            <button
+            <motion.button
+              whileTap={{ scale: 0.96 }}
               key={cat}
               onClick={() => setCategoryFilter(cat === 'All' ? '' : cat)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${isSelected
+              className={`px-3 py-1.5 rounded-lg text-xs font-heading font-medium transition ${isSelected
                 ? 'bg-pink-500/20 text-pink-300 border border-pink-500/40'
                 : 'bg-slate-900/60 text-slate-400 hover:text-white border border-slate-800'
                 }`}
             >
               {cat}
-            </button>
+            </motion.button>
           );
         })}
       </div>
@@ -117,25 +119,29 @@ export default function Quizzes() {
       {!loading && !error && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {quizzes.map((item, idx) => (
-            <div
+            <motion.div
               key={item._id || idx}
-              className="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col justify-between group"
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: Math.min(idx * 0.05, 0.4) }}
+              whileHover={{ y: -4 }}
+              className="glass-card glass-card-ice rounded-2xl p-6 border border-slate-800 flex flex-col justify-between group transition-colors shadow-lg hover:border-ice/40"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-3">
                   <span
-                    className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider border ${getDifficultyBadge(
+                    className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-heading font-semibold uppercase tracking-wider border ${getDifficultyBadge(
                       item.difficulty
                     )}`}
                   >
                     {item.difficulty || 'Standard'}
                   </span>
-                  <span className="text-[11px] text-slate-400">
+                  <span className="text-[11px] text-slate-400 font-heading">
                     {item.category || 'Dhatu Physiology'}
                   </span>
                 </div>
 
-                <h3 className="text-base font-bold text-slate-100 group-hover:text-amber-300 transition leading-snug mb-3">
+                <h3 className="text-base font-bold text-slate-100 group-hover:text-ice-soft transition leading-snug mb-3 font-heading">
                   {item.question}
                 </h3>
 
@@ -145,19 +151,19 @@ export default function Quizzes() {
               </div>
 
               <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between">
-                <span className="text-[11px] text-slate-500">
+                <span className="text-[11px] text-slate-500 font-heading">
                   {item.relatedDhatu ? `Relates to ${item.relatedDhatu}` : 'Core Concept'}
                 </span>
 
                 <Link
                   to={`/quizzes/${item.slug || item._id}`}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 shadow-md transition flex items-center gap-1.5"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold font-heading bg-gradient-to-r from-ice-bright to-silver-deep hover:opacity-95 text-slate-950 shadow-md transition flex items-center gap-1.5"
                 >
                   <span>Answer Question</span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       )}

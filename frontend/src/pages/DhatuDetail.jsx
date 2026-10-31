@@ -79,7 +79,7 @@ export default function DhatuDetail() {
           onRetry={() => window.location.reload()}
         />
         <div className="text-center mt-6">
-          <Link to="/dhatus" className="text-xs text-amber-400 hover:underline">
+          <Link to="/dhatus" className="text-xs text-amber-400 hover:underline font-heading">
             ← Return to all Dhatus
           </Link>
         </div>
@@ -91,10 +91,10 @@ export default function DhatuDetail() {
 
   return (
     <div className="w-full max-w-[1920px] mx-auto px-3 sm:px-6 lg:px-10 xl:px-12 py-6 sm:py-8 space-y-6 sm:space-y-8 animate-spatial-in">
-      <div className="flex flex-col xs:flex-row items-stretch xs:items-center justify-between gap-3 spatial-dock p-3 sm:p-4 rounded-2xl border border-slate-700/60 shadow-lg">
+      <div className="flex flex-col xs:flex-row items-stretch xs:items-center justify-between gap-3 spatial-dock p-3 sm:p-4 rounded-2xl border border-slate-700/60 shadow-lg font-heading">
         <Link
           to="/dhatus"
-          className="inline-flex items-center justify-center gap-2 text-xs font-bold text-slate-300 hover:text-white transition px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 cursor-pointer min-h-[44px] touch-target"
+          className="inline-flex items-center justify-center gap-2 text-xs font-bold text-slate-300 hover:text-white transition px-3.5 py-2.5 rounded-xl hover:bg-slate-800/80 cursor-pointer min-h-[44px] touch-target active:scale-95"
         >
           <ArrowLeft className="w-4 h-4 text-amber-400 shrink-0" />
           <span>All Sapta Dhatus</span>
@@ -102,7 +102,7 @@ export default function DhatuDetail() {
 
         <Link
           to={`/explore?dhatu=${dhatu.slug}`}
-          className="px-4 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 hover:opacity-95 shadow-lg shadow-amber-500/20 hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer min-h-[44px] touch-target"
+          className="px-4 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 hover:opacity-95 shadow-lg shadow-amber-500/20 hover:-translate-y-0.5 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer min-h-[44px] touch-target"
         >
           <Sparkles className="w-4 h-4 shrink-0" />
           <span>View in 3D Human Body</span>
@@ -122,212 +122,178 @@ export default function DhatuDetail() {
                 className="w-3.5 h-3.5 rounded-full shadow-sm shrink-0"
                 style={{ backgroundColor: mapping?.uiColor || '#f59e0b' }}
               />
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-400">
-                Dhatu #{dhatu.order || mapping?.sequence || '1'} • Sequential Parinama
+              <span className="text-xs font-heading font-bold uppercase tracking-wider text-amber-400">
+                Dhatu #{dhatu.order || 1} of 7 • Structural Continuum
               </span>
             </div>
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-slate-100 font-heading flex flex-wrap items-baseline gap-2 sm:gap-3">
               <span>{dhatu.name}</span>
-              {dhatu.sanskritName && (
-                <span className="text-xl sm:text-2xl lg:text-3xl font-classical text-amber-300">
-                  ({typeof dhatu.sanskritName === 'object'
-                    ? dhatu.sanskritName.devanagari || dhatu.sanskritName.iast
-                    : dhatu.sanskritName})
-                </span>
-              )}
+              <span className="text-xl sm:text-3xl text-amber-300 font-heading">
+                {typeof dhatu.sanskritName === 'object'
+                  ? dhatu.sanskritName?.devanagari || dhatu.sanskritName?.iast
+                  : dhatu.sanskritName}
+              </span>
             </h1>
+            {dhatu.sanskritName?.iast && typeof dhatu.sanskritName === 'object' && (
+              <span className="text-xs text-slate-400 font-body">IAST: {dhatu.sanskritName.iast}</span>
+            )}
           </div>
 
-          <div className="sm:text-right shrink-0">
-            <span className="inline-block px-3 py-1.5 rounded-full text-xs font-semibold bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 shadow-sm">
-              {typeof dhatu.classification === 'object'
-                ? dhatu.classification.category || 'Sapta Dhatu'
-                : (dhatu.classification || 'Sapta Dhatu')}
+          <div className="flex flex-col items-start sm:items-end">
+            <span className="text-[11px] uppercase tracking-wider text-slate-400 font-heading">Primary Karma</span>
+            <span className="text-base sm:text-lg font-bold text-amber-300 font-heading">
+              {dhatu.primaryFunction || dhatu.functions?.[0]?.meaning || dhatu.functions?.[0]?.description || 'Vital physiological function'}
             </span>
-            {mapping && (
-              <p className="text-xs text-slate-400 mt-2 max-w-xs">
-                Educational 3D Focus: {mapping.educationalFocus}
-              </p>
-            )}
+            <p className="text-xs text-slate-400 mt-2 max-w-xs font-body">
+              {dhatu.modernCorrelation || 'Anatomical biological correlation'}
+            </p>
           </div>
         </div>
 
-        {dhatu.generalDescription && (
-          <p className="text-xs sm:text-sm md:text-base text-slate-200 leading-relaxed max-w-4xl bg-slate-900/50 p-3.5 sm:p-4 rounded-2xl border border-slate-800/80">
-            {dhatu.generalDescription}
+        {dhatu.description && (
+          <p className="text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed max-w-4xl bg-slate-900/60 p-3.5 sm:p-4 rounded-2xl border border-slate-800 mb-6 font-body">
+            {dhatu.description}
           </p>
         )}
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {dhatu.dhatuLakshana && (
-          <div className="glass-panel p-6 rounded-2xl border border-amber-500/20 bg-amber-950/10">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-amber-300 mb-2 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-amber-400" />
-              <span>Classical Lakshana (Essential Definition)</span>
-            </h3>
-            <p className="text-sm text-slate-200 leading-relaxed italic">
-              "{Array.isArray(dhatu.dhatuLakshana)
-                ? dhatu.dhatuLakshana.map(l => typeof l === 'object' ? `${l.characteristic}${l.explanation ? `: ${l.explanation}` : ''}` : l).join(' • ')
-                : (typeof dhatu.dhatuLakshana === 'object' ? dhatu.dhatuLakshana.characteristic || '' : dhatu.dhatuLakshana)}"
-            </p>
-          </div>
-        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {dhatu.userFriendlyLayer && (
+            <div className="glass-panel p-6 rounded-2xl border border-amber-500/20 bg-amber-950/10">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-amber-300 mb-2 flex items-center gap-2 font-heading">
+                <Sparkles className="w-4 h-4" />
+                <span>Conceptual Insight</span>
+              </h3>
+              <p className="text-sm text-slate-200 leading-relaxed italic font-body">
+                "{dhatu.userFriendlyLayer.analogy || dhatu.userFriendlyLayer.summary || dhatu.userFriendlyLayer.oneLiner}"
+              </p>
+            </div>
+          )}
 
-        {dhatu.functions && (
-          <div className="glass-panel p-6 rounded-2xl border border-slate-800">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-cyan-300 mb-2 flex items-center gap-2">
-              <Activity className="w-4 h-4 text-cyan-400" />
-              <span>Dhatu Karma (Physiological Actions)</span>
-            </h3>
-            {Array.isArray(dhatu.functions) ? (
-              <ul className="space-y-2 text-xs sm:text-sm text-slate-300">
-                {dhatu.functions.map((fn, idx) => (
-                  <li key={idx} className="flex items-start gap-2 bg-slate-900/40 p-2 rounded-lg">
+          {dhatu.functions && Array.isArray(dhatu.functions) && (
+            <div className="glass-panel p-6 rounded-2xl border border-slate-800">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300 mb-2 flex items-center gap-2 font-heading">
+                <Activity className="w-4 h-4 text-cyan-400" />
+                <span>Functions (Karma)</span>
+              </h3>
+              <ul className="space-y-2 text-xs sm:text-sm text-slate-300 font-body">
+                {dhatu.functions.map((f, idx) => (
+                  <li key={idx} className="flex items-start gap-2 bg-slate-900/40 p-2 rounded-lg border border-slate-800/80">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <span>{typeof fn === 'object' ? fn.description || fn.name : fn}</span>
+                    <span>{typeof f === 'object' ? `${f.name || ''} - ${f.description || f.meaning || ''}` : f}</span>
                   </li>
                 ))}
               </ul>
-            ) : (
-              <p className="text-xs sm:text-sm text-slate-300">
-                {typeof dhatu.functions === 'object'
-                  ? dhatu.functions.primaryFunction || JSON.stringify(dhatu.functions)
-                  : dhatu.functions}
+            </div>
+          )}
+
+          {dhatu.formationProcess && (
+            <div className="glass-panel p-6 rounded-2xl border border-slate-800">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300 mb-2 flex items-center gap-2 font-heading">
+                <Flame className="w-4 h-4 text-amber-400" />
+                <span>Formation Process (Dhatu Nirmana)</span>
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-body">
+                {typeof dhatu.formationProcess === 'object'
+                  ? dhatu.formationProcess.description || dhatu.formationProcess.mechanism || JSON.stringify(dhatu.formationProcess)
+                  : dhatu.formationProcess}
               </p>
-            )}
-          </div>
-        )}
-      </div>
+            </div>
+          )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {dhatu.location && (
-          <div className="glass-panel p-6 rounded-2xl border border-slate-800">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300 mb-2 flex items-center gap-2">
-              <Layers className="w-4 h-4 text-amber-400" />
-              <span>Dhatu Sthana (Physiological Seats)</span>
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              {Array.isArray(dhatu.location)
-                ? dhatu.location.join(', ')
-                : (typeof dhatu.location === 'object'
-                  ? dhatu.location.primaryLocation || dhatu.location.description
-                  : dhatu.location)}
-            </p>
-          </div>
-        )}
+          {dhatu.nourishmentDynamics && (
+            <div className="glass-panel p-6 rounded-2xl border border-slate-800">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300 mb-2 flex items-center gap-2 font-heading">
+                <GitBranch className="w-4 h-4 text-cyan-400" />
+                <span>Nourishment Dynamics (Poshana)</span>
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-body">
+                {typeof dhatu.nourishmentDynamics === 'object'
+                  ? dhatu.nourishmentDynamics.description || JSON.stringify(dhatu.nourishmentDynamics)
+                  : dhatu.nourishmentDynamics}
+              </p>
+            </div>
+          )}
+        </div>
 
-        {dhatu.formation && (
-          <div className="glass-panel p-6 rounded-2xl border border-slate-800">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300 mb-2 flex items-center gap-2">
-              <GitBranch className="w-4 h-4 text-purple-400" />
-              <span>Formation & Metabolic Synthesis</span>
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              {typeof dhatu.formation === 'object'
-                ? dhatu.formation.processDescription || dhatu.formation.description || dhatu.formation.precursorDhatu || dhatu.formation.precursor
-                : dhatu.formation}
-            </p>
-          </div>
-        )}
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {dhatu.upadhatus && (
-          <div className="glass-panel p-5 rounded-xl border border-slate-800">
-            <span className="text-[11px] uppercase font-bold text-cyan-400 block mb-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+          <div className="glass-panel p-5 rounded-xl border border-slate-800/80 bg-slate-900/40">
+            <span className="text-[11px] uppercase font-bold text-cyan-400 block mb-1 font-heading">
               Upadhatu (Secondary Tissues)
             </span>
-            <p className="text-xs sm:text-sm text-slate-200">
+            <p className="text-xs sm:text-sm text-slate-200 font-body">
               {Array.isArray(dhatu.upadhatus)
-                ? dhatu.upadhatus.map((u) => (typeof u === 'object' ? u.name : u)).join(', ')
-                : String(dhatu.upadhatus)}
+                ? dhatu.upadhatus.map(u => typeof u === 'object' ? u.name : u).join(', ')
+                : dhatu.upadhatu || 'None specified'}
             </p>
           </div>
-        )}
 
-        {dhatu.malas && (
-          <div className="glass-panel p-5 rounded-xl border border-slate-800">
-            <span className="text-[11px] uppercase font-bold text-amber-400 block mb-1">
-              Dhatu Mala (Byproducts)
+          <div className="glass-panel p-5 rounded-xl border border-slate-800/80 bg-slate-900/40">
+            <span className="text-[11px] uppercase font-bold text-amber-400 block mb-1 font-heading">
+              Mala (Metabolic Byproduct)
             </span>
-            <p className="text-xs sm:text-sm text-slate-200">
+            <p className="text-xs sm:text-sm text-slate-200 font-body">
               {Array.isArray(dhatu.malas)
-                ? dhatu.malas.map((m) => (typeof m === 'object' ? m.name : m)).join(', ')
-                : String(dhatu.malas)}
+                ? dhatu.malas.map(m => typeof m === 'object' ? m.name : m).join(', ')
+                : dhatu.mala || 'None specified'}
             </p>
           </div>
-        )}
 
-        {dhatu.srotas && (
-          <div className="glass-panel p-5 rounded-xl border border-slate-800">
-            <span className="text-[11px] uppercase font-bold text-purple-400 block mb-1">
-              Srotas (Channel Nexus)
+          <div className="glass-panel p-5 rounded-xl border border-slate-800/80 bg-slate-900/40">
+            <span className="text-[11px] uppercase font-bold text-purple-400 block mb-1 font-heading">
+              Associated Srotas (Micro-channel)
             </span>
-            <p className="text-xs sm:text-sm text-slate-200">
-              {typeof dhatu.srotas === 'object'
-                ? dhatu.srotas.name || (Array.isArray(dhatu.srotas.moolasthana) ? dhatu.srotas.moolasthana.join(', ') : dhatu.srotas.mula)
-                : String(dhatu.srotas)}
+            <p className="text-xs sm:text-sm text-slate-200 font-body">
+              {dhatu.srotas?.name || (typeof dhatu.srotas === 'string' ? dhatu.srotas : `${dhatu.name}avaha Srotas`)}
             </p>
           </div>
-        )}
 
-        {dhatu.ojasRelationship && (
-          <div className="glass-panel p-5 rounded-xl border border-slate-800">
-            <span className="text-[11px] uppercase font-bold text-emerald-400 block mb-1">
-              Ojas Relationship
+          <div className="glass-panel p-5 rounded-xl border border-slate-800/80 bg-slate-900/40">
+            <span className="text-[11px] uppercase font-bold text-rose-400 block mb-1 font-heading">
+              Panchabhautik Composition
             </span>
-            <p className="text-xs text-slate-200 line-clamp-3">
-              {typeof dhatu.ojasRelationship === 'object'
-                ? dhatu.ojasRelationship.description
-                : String(dhatu.ojasRelationship)}
+            <p className="text-xs text-slate-300 line-clamp-3 font-body">
+              {dhatu.panchamahabhutaComposition?.predominantElements?.join(', ') || dhatu.panchabhautikDominance || 'Balanced Mahabhuta matrix'}
             </p>
           </div>
-        )}
-      </div>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {dhatu.sarata && (
-          <div className="glass-panel p-6 rounded-2xl border border-slate-800">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-amber-300 mb-2 flex items-center gap-2">
-              <Shield className="w-4 h-4 text-amber-400" />
-              <span>Dhatu Sarata (Tissue Excellence Characteristics)</span>
+        {dhatu.srotas && typeof dhatu.srotas === 'object' && dhatu.srotas.mula && (
+          <div className="mt-6 glass-panel p-6 rounded-2xl border border-slate-800">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300 mb-2 flex items-center gap-2 font-heading">
+              <Layers className="w-4 h-4 text-purple-400" />
+              <span>Srotas Roots (Mulasthana)</span>
             </h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              {Array.isArray(dhatu.sarata)
-                ? dhatu.sarata.map(s => typeof s === 'object' ? `${s.featureCategory ? `${s.featureCategory}: ` : ''}${Array.isArray(s.characteristics) ? s.characteristics.join('; ') : s.characteristics || s.clinicalSignificance || ''}` : s).join(' • ')
-                : (typeof dhatu.sarata === 'object'
-                  ? dhatu.sarata.characteristics || dhatu.sarata.description || ''
-                  : dhatu.sarata)}
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-body">
+              {Array.isArray(dhatu.srotas.mula) ? dhatu.srotas.mula.join(', ') : dhatu.srotas.mula}
             </p>
           </div>
         )}
 
         {dhatu.clinicalRelevance && (
-          <div className="glass-panel p-6 rounded-2xl border border-slate-800">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-rose-300 mb-2 flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-rose-400" />
-              <span>Clinical Relevance (Vriddhi / Kshaya / Dushti)</span>
+          <div className="mt-6 glass-panel p-6 rounded-2xl border border-slate-800">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300 mb-2 flex items-center gap-2 font-heading">
+              <Shield className="w-4 h-4 text-emerald-400" />
+              <span>Clinical Relevance & Pathological Variations</span>
             </h3>
-            <div className="text-xs sm:text-sm text-slate-300 leading-relaxed space-y-2">
+            <div className="text-xs sm:text-sm text-slate-300 leading-relaxed space-y-2 font-body">
               {typeof dhatu.clinicalRelevance === 'object' ? (
                 <>
                   {dhatu.clinicalRelevance.kshayaLakshana && (
-                    <p><span className="text-rose-400 font-semibold">Kshaya (Depletion): </span>
+                    <p><span className="text-rose-400 font-semibold font-heading">Kshaya (Depletion): </span>
                       {Array.isArray(dhatu.clinicalRelevance.kshayaLakshana)
                         ? dhatu.clinicalRelevance.kshayaLakshana.map(k => typeof k === 'object' ? `${k.symptom || ''}${k.clinicalExplanation ? ` (${k.clinicalExplanation})` : ''}` : k).join('; ')
                         : String(dhatu.clinicalRelevance.kshayaLakshana)}
                     </p>
                   )}
                   {dhatu.clinicalRelevance.vriddhiLakshana && (
-                    <p><span className="text-amber-400 font-semibold">Vriddhi (Excess): </span>
+                    <p><span className="text-amber-400 font-semibold font-heading">Vriddhi (Excess): </span>
                       {Array.isArray(dhatu.clinicalRelevance.vriddhiLakshana)
                         ? dhatu.clinicalRelevance.vriddhiLakshana.map(v => typeof v === 'object' ? `${v.symptom || ''}${v.clinicalExplanation ? ` (${v.clinicalExplanation})` : ''}` : v).join('; ')
                         : String(dhatu.clinicalRelevance.vriddhiLakshana)}
                     </p>
                   )}
                   {dhatu.clinicalRelevance.pradoshajaVikara && (
-                    <p><span className="text-cyan-400 font-semibold">Pradoshaja Vikara: </span>
+                    <p><span className="text-cyan-400 font-semibold font-heading">Pradoshaja Vikara: </span>
                       {Array.isArray(dhatu.clinicalRelevance.pradoshajaVikara)
                         ? dhatu.clinicalRelevance.pradoshajaVikara.map(p => typeof p === 'object' ? `${p.diseaseName || ''}${p.description ? `: ${p.description}` : ''}` : p).join('; ')
                         : String(dhatu.clinicalRelevance.pradoshajaVikara)}
@@ -345,9 +311,9 @@ export default function DhatuDetail() {
         )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 font-body">
         <div className="glass-card p-6 rounded-2xl border border-orange-500/20">
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-3 font-heading">
             <div className="flex items-center gap-2 text-orange-400 font-semibold text-sm">
               <Flame className="w-4 h-4" />
               <span>Corresponding Dhatvagni</span>
@@ -364,7 +330,7 @@ export default function DhatuDetail() {
           </div>
           {dhatvagni ? (
             <div>
-              <h4 className="text-base font-bold text-slate-100 mb-1">
+              <h4 className="text-base font-bold text-slate-100 mb-1 font-heading">
                 {dhatvagni.name} ({typeof dhatvagni.sanskritName === 'object' ? dhatvagni.sanskritName.devanagari || dhatvagni.sanskritName.iast : (dhatvagni.sanskritName || '')})
               </h4>
               <p className="text-xs text-slate-400 leading-relaxed line-clamp-3">
@@ -379,7 +345,7 @@ export default function DhatuDetail() {
         </div>
 
         <div className="glass-card p-6 rounded-2xl border border-cyan-500/20">
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-3 font-heading">
             <div className="flex items-center gap-2 text-cyan-400 font-semibold text-sm">
               <GitBranch className="w-4 h-4" />
               <span>Dhatuposhana Process</span>
@@ -396,7 +362,7 @@ export default function DhatuDetail() {
           </div>
           {dhatuposhana ? (
             <div>
-              <h4 className="text-base font-bold text-slate-100 mb-1">
+              <h4 className="text-base font-bold text-slate-100 mb-1 font-heading">
                 {dhatuposhana.name || dhatuposhana.dhatuName || dhatu.name} Nourishment Dynamics
               </h4>
               <p className="text-xs text-slate-400 leading-relaxed line-clamp-3">

@@ -110,14 +110,14 @@ export default function SamhitaReferences({
 
   return (
     <div className={`glass-panel p-4 sm:p-6 lg:p-7 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden ${className}`}>
-      <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-200 mb-4 flex items-center gap-2">
-        <BookMarked className="w-4 h-4 text-amber-400 shrink-0" />
+      <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-100 mb-4 flex items-center gap-2 font-heading">
+        <BookMarked className="w-4 h-4 text-ice shrink-0" />
         <span>{title}</span>
       </h3>
 
       {normalizedList.length === 0 ? (
         <div className="p-4 rounded-2xl bg-slate-900/50 border border-slate-800/80 text-center">
-          <p className="text-xs text-slate-400 italic">No references available.</p>
+          <p className="text-xs text-slate-400 italic font-body">No references available.</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -127,18 +127,18 @@ export default function SamhitaReferences({
               className="bg-slate-900/70 p-4 sm:p-5 rounded-2xl border border-slate-800/90 text-xs text-slate-300 transition-all hover:border-slate-700/80"
             >
               <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                <span className="font-semibold text-amber-300 text-sm">
+                <span className="font-semibold text-ice-soft text-sm font-heading">
                   {ref.samhita}
                 </span>
 
-                <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono text-slate-400">
+                <div className="flex flex-wrap items-center gap-2 text-[11px] font-heading text-slate-400">
                   {ref.location && (
                     <span className="px-2 py-0.5 rounded-full bg-slate-800/80 border border-slate-700/60">
                       {ref.location}
                     </span>
                   )}
                   {ref.verse && (
-                    <span className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20 font-bold">
+                    <span className="px-2 py-0.5 rounded-full bg-ice/10 text-ice-soft border border-ice/20 font-bold">
                       {ref.verse}
                     </span>
                   )}
@@ -146,35 +146,35 @@ export default function SamhitaReferences({
               </div>
 
               {ref.context && (
-                <div className="mb-2 text-[11px] text-cyan-400/90 font-medium">
+                <div className="mb-2 text-[11px] text-cyan-400/90 font-medium font-body">
                   Context: {ref.context}
                 </div>
               )}
 
               {ref.originalSanskrit && (
-                <div className="my-2.5 p-3 rounded-xl bg-amber-950/20 border border-amber-500/20 relative">
-                  <Quote className="w-3.5 h-3.5 text-amber-400/40 absolute top-2 right-2 pointer-events-none" />
-                  <p className="font-classical text-amber-100/95 text-xs sm:text-sm leading-relaxed pr-5">
+                <div className="my-2.5 p-3 rounded-xl bg-ice-deep/20 border border-ice/20 relative">
+                  <Quote className="w-3.5 h-3.5 text-ice/40 absolute top-2 right-2 pointer-events-none" />
+                  <p className="font-heading text-ice-bright/95 text-xs sm:text-sm leading-relaxed pr-5">
                     {ref.originalSanskrit}
                   </p>
                 </div>
               )}
 
               {ref.transliteration && (
-                <p className="text-[11px] text-slate-400 font-mono italic mb-2">
+                <p className="text-[11px] text-slate-400 italic mb-2 font-body">
                   {ref.transliteration}
                 </p>
               )}
 
               {ref.translation && (
-                <div className="mt-2 text-slate-300 text-xs leading-relaxed">
+                <div className="mt-2 text-slate-300 text-xs leading-relaxed font-body">
                   <span className="text-slate-400 font-semibold">Translation: </span>
                   {ref.translation}
                 </div>
               )}
 
               {(ref.commentary || ref.commentarySummary) && (
-                <div className="mt-2.5 pt-2 border-t border-slate-800/60 text-[11px] text-slate-400 flex flex-col gap-1">
+                <div className="mt-2.5 pt-2 border-t border-slate-800/60 text-[11px] text-slate-400 flex flex-col gap-1 font-body">
                   {ref.commentary && (
                     <div>
                       <span className="text-slate-500 font-medium">Commentary: </span>

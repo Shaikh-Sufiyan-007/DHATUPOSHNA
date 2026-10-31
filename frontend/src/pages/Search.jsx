@@ -6,7 +6,8 @@ import SearchResults from '../components/search/SearchResults.jsx';
 import LoadingState from '../components/common/LoadingState.jsx';
 import ErrorState from '../components/common/ErrorState.jsx';
 import EmptyState from '../components/common/EmptyState.jsx';
-import { Search as SearchIcon, Sparkles, Filter } from 'lucide-react';
+import { Search as SearchIcon } from 'lucide-react';
+import { motion } from 'motion/react';
 
 export default function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -71,10 +72,10 @@ export default function Search() {
   ];
 
   return (
-    <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-8 space-y-8 animate-fadeIn">
+    <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-8 space-y-8 font-body">
       <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 text-center">
-        <div className="inline-flex items-center gap-2 mb-2 text-xs font-semibold text-amber-300 uppercase tracking-wider">
-          <SearchIcon className="w-4 h-4 text-amber-400" />
+        <div className="inline-flex items-center gap-2 mb-2 text-xs font-semibold text-ice-soft uppercase tracking-wider font-heading">
+          <SearchIcon className="w-4 h-4 text-ice" />
           <span>Global Ayurvedic Search Engine</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-100 font-heading mb-4">
@@ -89,27 +90,28 @@ export default function Search() {
           {types.map((t) => {
             const isSelected = selectedType === t.value;
             return (
-              <button
+              <motion.button
+                whileTap={{ scale: 0.95 }}
                 key={t.value}
                 onClick={() => {
                   setSelectedType(t.value);
                   setSearchParams(query ? { q: query, ...(t.value ? { type: t.value } : {}) } : {});
                 }}
-                className={`px-3 py-1 rounded-full text-xs font-medium transition ${isSelected
-                    ? 'bg-amber-500 text-slate-950 font-bold shadow'
+                className={`px-3 py-1 rounded-full text-xs font-medium font-heading transition ${isSelected
+                    ? 'bg-silver text-slate-950 font-bold shadow'
                     : 'bg-slate-900/60 text-slate-400 hover:text-white border border-slate-800'
                   }`}
               >
                 {t.label}
-              </button>
+              </motion.button>
             );
           })}
         </div>
       </div>
 
       {!query && (
-        <div className="glass-card p-6 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto">
-          <span className="text-xs text-slate-400 block mb-3 font-medium">
+        <div className="glass-card glass-card-ice p-6 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto shadow-lg">
+          <span className="text-xs text-slate-400 block mb-3 font-medium font-heading">
             Suggested Search Queries:
           </span>
           <div className="flex flex-wrap items-center justify-center gap-2">
@@ -130,13 +132,15 @@ export default function Search() {
               'Srotas',
               'Agni',
             ].map((term) => (
-              <button
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 key={term}
                 onClick={() => handleSearchSubmit(term)}
-                className="px-2.5 py-1 rounded-lg text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-amber-300 border border-slate-800 transition"
+                className="px-2.5 py-1 rounded-lg text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-ice-soft border border-slate-800 transition font-heading"
               >
                 {term}
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>
@@ -154,9 +158,9 @@ export default function Search() {
 
       {!loading && !error && results.length > 0 && (
         <div className="space-y-4">
-          <div className="flex items-center justify-between text-xs text-slate-400 px-1">
+          <div className="flex items-center justify-between text-xs text-slate-400 px-1 font-heading">
             <span>
-              Found <strong className="text-amber-300">{results.length}</strong> matching records for "{query}"
+              Found <strong className="text-ice-soft">{results.length}</strong> matching records for "{query}"
             </span>
             {selectedType && (
               <span className="uppercase tracking-wider font-semibold text-slate-500">

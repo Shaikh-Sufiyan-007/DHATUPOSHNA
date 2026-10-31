@@ -22,8 +22,8 @@ export default function PublicRoute({ children }) {
       ? fromLocation
       : fromLocation?.pathname
         ? `${fromLocation.pathname}${fromLocation.search || ''}`
-        : '/';
-    const redirectPath = (!rawPath || rawPath === '/login' || rawPath === '/signup') ? '/' : rawPath;
+        : '/home';
+    const redirectPath = (!rawPath || rawPath === '/login' || rawPath === '/signup' || rawPath === '/') ? '/home' : rawPath;
 
     return <Navigate to={redirectPath} replace />;
   }
