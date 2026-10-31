@@ -6,6 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:skeleton": "node scripts/skeleton/build-skeleton.mjs",
+    "verify:skeleton": "node scripts/skeleton/verify-skeleton.mjs",
+    "build:explore-skeleton": "node scripts/skeleton/build-explore-skeleton.mjs",
+    "verify:explore-skeleton": "node scripts/skeleton/verify-explore-skeleton.mjs",
+    "build:explore-body": "node scripts/skeleton/build-explore-body.mjs",
+    "verify:explore-body": "node scripts/skeleton/verify-explore-body.mjs",
     "generate:model": "node scripts/generate-model.js",
     "lint": "oxlint",
     "preview": "vite preview"
@@ -14,20 +20,31 @@
     "node": "^20.19.0 || >=22.0.0"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/manrope": "^5.3.0",
+    "@fontsource/playfair-display": "^5.3.0",
+    "@fontsource/space-grotesk": "^5.3.0",
+    "@gsap/react": "^2.1.2",
     "@react-three/drei": "^10.7.9",
     "@react-three/fiber": "^9.8.1",
     "axios": "^1.20.0",
+    "gsap": "^3.15.0",
     "lucide-react": "^1.52.0",
+    "motion": "^14.7.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.4",
     "three": "^0.186.1"
   },
   "devDependencies": {
+    "@gltf-transform/core": "^4.5.1",
+    "@gltf-transform/extensions": "^4.5.1",
+    "@gltf-transform/functions": "^4.5.1",
     "@tailwindcss/vite": "^4.3.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
+    "meshoptimizer": "^1.1.1",
     "oxlint": "^1.81.0",
     "tailwindcss": "^4.3.3",
     "vite": "^8.3.0"

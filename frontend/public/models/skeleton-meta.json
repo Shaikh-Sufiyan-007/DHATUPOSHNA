@@ -1,0 +1,90 @@
+{
+  "totalHeightMeters": 1.72,
+  "anchorHeights": {
+    "anchor_C1": 1.485,
+    "anchor_C2": 1.47,
+    "anchor_C3": 1.454,
+    "anchor_C4": 1.439,
+    "anchor_C5": 1.424,
+    "anchor_C6": 1.408,
+    "anchor_C7": 1.391,
+    "anchor_T1": 1.371,
+    "anchor_T2": 1.349,
+    "anchor_T3": 1.326,
+    "anchor_T4": 1.302,
+    "anchor_T5": 1.277,
+    "anchor_T6": 1.251,
+    "anchor_T7": 1.224,
+    "anchor_T8": 1.196,
+    "anchor_T9": 1.167,
+    "anchor_T10": 1.137,
+    "anchor_T11": 1.106,
+    "anchor_T12": 1.074,
+    "anchor_L1": 1.04,
+    "anchor_L2": 1.004,
+    "anchor_L3": 0.966,
+    "anchor_L4": 0.926,
+    "anchor_L5": 0.884,
+    "anchor_S": 0.8,
+    "anchor_Co": 0.725
+  },
+  "regions": {
+    "cervical": [
+      "C1_atlas",
+      "C2_axis",
+      "C3",
+      "C4",
+      "C5",
+      "C6",
+      "C7"
+    ],
+    "thoracic": [
+      "T1",
+      "T2",
+      "T3",
+      "T4",
+      "T5",
+      "T6",
+      "T7",
+      "T8",
+      "T9",
+      "T10",
+      "T11",
+      "T12"
+    ],
+    "lumbar": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+    ],
+    "sacral": [
+      "sacrum"
+    ],
+    "coccygeal": [
+      "coccyx"
+    ]
+  },
+  "landmarks": {
+    "SKULL_TOP": 1,
+    "FRANKFURT_PLANE": 0.93,
+    "CHIN_MENTON": 0.87,
+    "C1_ATLAS": 0.865,
+    "C7_SPINOUS": 0.82,
+    "ACROMION": 0.82,
+    "STERNAL_NOTCH": 0.81,
+    "ELBOW_JOINT": 0.63,
+    "L1_VERTEBRA": 0.63,
+    "ILIAC_CREST": 0.6,
+    "WRIST_JOINT": 0.485,
+    "FINGER_TIPS": 0.38,
+    "HIP_JOINT": 0.53,
+    "PUBIC_SYMPHYSIS": 0.505,
+    "KNEE_JOINT": 0.285,
+    "ANKLE_JOINT": 0.04,
+    "FOOT_SOLE": 0
+  },
+  "spineMeanZ": 0,
+  "generatedAt": "2026-10-30T14:42:52.989Z"
+}
