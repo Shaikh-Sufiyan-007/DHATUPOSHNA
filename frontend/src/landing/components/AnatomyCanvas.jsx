@@ -223,9 +223,13 @@ export default function AnatomyCanvas({
 
   return (
     <div
-      className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[#0A0F16]"
       aria-hidden="true"
     >
+      {/* Subtle atmospheric anatomical depth placeholder behind canvas */}
+      <div className="absolute inset-0 bg-radial from-[#151C26]/40 via-[#0A0F16]/90 to-[#0A0F16] pointer-events-none -z-10" />
+      <div className="absolute top-[18%] right-[15%] w-[420px] h-[420px] rounded-full bg-gradient-to-br from-[#6FB3E0]/08 via-[#BFC8D6]/05 to-transparent blur-3xl pointer-events-none -z-10" />
+
       <Canvas
         camera={{ position: [0, 1.61, 0.85], fov: 38, near: 0.1, far: 50 }}
         dpr={dpr}

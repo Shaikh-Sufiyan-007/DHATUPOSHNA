@@ -140,7 +140,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between gap-2 lg:gap-3 h-12 sm:h-14">
             {/* Brand / Logo */}
             <Link
-              to="/"
+              to="/home"
               className="flex items-center gap-2 sm:gap-2.5 group shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ice rounded-xl"
             >
               <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-ice via-ice-soft to-cyan-400 p-[1px] shadow-lg shadow-ice/20 group-hover:shadow-ice/35 transition-all duration-300 group-hover:scale-105 shrink-0">

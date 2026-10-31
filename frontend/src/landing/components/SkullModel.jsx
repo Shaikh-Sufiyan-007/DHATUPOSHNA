@@ -9,7 +9,8 @@ import {
 } from '../constants/landingTheme.js';
 
 export default function SkullModel({ sceneStateRef, tier, visible = true }) {
-  const { scene } = useGLTF('/models/skull-hero.glb');
+  const modelPath = tier === 'low' ? '/models/skull-hero-lite.glb' : '/models/skull-hero.glb';
+  const { scene } = useGLTF(modelPath, '/draco/');
   const groupRef = useRef();
   const innerRef = useRef();
   const idleTimeRef = useRef(0);
@@ -113,4 +114,5 @@ export default function SkullModel({ sceneStateRef, tier, visible = true }) {
   );
 }
 
-useGLTF.preload('/models/skull-hero.glb');
+useGLTF.preload('/models/skull-hero.glb', '/draco/');
+useGLTF.preload('/models/skull-hero-lite.glb', '/draco/');

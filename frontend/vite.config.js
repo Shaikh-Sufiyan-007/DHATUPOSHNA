@@ -20,6 +20,9 @@ export default defineConfig({
           if (id.includes('three') || id.includes('@react-three')) {
             return 'vendor-three';
           }
+          if (id.includes('gsap') || id.includes('@gsap') || id.includes('motion')) {
+            return 'vendor-animation';
+          }
           if (id.includes('lucide-react')) {
             return 'vendor-icons';
           }

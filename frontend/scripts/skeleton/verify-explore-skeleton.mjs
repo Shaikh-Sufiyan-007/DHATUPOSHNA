@@ -2,6 +2,7 @@
 // Run with: npm run verify:explore-skeleton
 import { NodeIO } from '@gltf-transform/core';
 import { KHRONOS_EXTENSIONS } from '@gltf-transform/extensions';
+import draco3d from 'draco3d';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -21,7 +22,10 @@ async function verify() {
   console.log('DHATUPOSHNA — EXPLORE3D SKELETON VERIFICATION SUITE');
   console.log('===============================================================');
 
-  const io = new NodeIO().registerExtensions(KHRONOS_EXTENSIONS);
+  const decoder = await draco3d.createDecoderModule();
+  const io = new NodeIO()
+    .registerExtensions(KHRONOS_EXTENSIONS)
+    .registerDependencies({ 'draco3d.decoder': decoder });
   let totalErrors = 0;
 
   // 1. Check file existence and sizes

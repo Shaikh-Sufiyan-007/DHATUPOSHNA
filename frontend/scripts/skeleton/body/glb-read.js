@@ -6,6 +6,13 @@ import * as THREE from 'three';
 import { NodeIO } from '@gltf-transform/core';
 import { KHRONOS_EXTENSIONS } from '@gltf-transform/extensions';
 import { dequantize } from '@gltf-transform/functions';
+import draco3d from 'draco3d';
+
+let decoderModule = null;
+async function getDecoder() {
+  if (!decoderModule) decoderModule = await draco3d.createDecoderModule();
+  return decoderModule;
+}
 
 const CELL = 0.02;
 
@@ -132,7 +139,10 @@ export async function readGlb(file) {
  * (KHR_mesh_quantization is undone first, so the verifier reads real metres).
  */
 export async function readParts(file) {
-  const io = new NodeIO().registerExtensions(KHRONOS_EXTENSIONS);
+  const decoder = await getDecoder();
+  const io = new NodeIO()
+    .registerExtensions(KHRONOS_EXTENSIONS)
+    .registerDependencies({ 'draco3d.decoder': decoder });
   const doc = await io.read(file);
   await doc.transform(dequantize());
   const out = [];

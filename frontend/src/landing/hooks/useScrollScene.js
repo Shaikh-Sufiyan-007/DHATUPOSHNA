@@ -24,7 +24,7 @@ const REVEAL_FADE_END = 0.46;
 const REVEAL_CAMERA_END = 0.54;
 const SETTLE_END = 0.72;
 
-export function useScrollScene({ trackRef }) {
+export function useScrollScene({ trackRef, isReady = true }) {
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [currentStage, setCurrentStage] = useState(1);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -72,7 +72,7 @@ export function useScrollScene({ trackRef }) {
     sceneStateRef.current.prefersReducedMotion = prefersReduced;
     setReducedMotion(prefersReduced);
 
-    if (!trackRef.current) return;
+    if (!isReady || !trackRef.current) return;
 
     const initialAspect = window.innerWidth / Math.max(1, window.innerHeight);
     const initialFitDist = getSkeletonFitCameraDistance(initialAspect);
@@ -268,7 +268,7 @@ export function useScrollScene({ trackRef }) {
       clearTimeout(refreshTimer);
       ctx.revert();
     };
-  }, [trackRef]);
+  }, [trackRef, isReady]);
 
   return {
     sceneStateRef,

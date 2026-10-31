@@ -3,7 +3,9 @@ import { Html, useProgress } from '@react-three/drei';
 import { Loader2 } from 'lucide-react';
 
 export default function ModelLoader() {
-  const { progress } = useProgress();
+  const { progress, active, loaded, total } = useProgress();
+
+  if (!active && progress >= 100) return null;
 
   return (
     <Html center>
@@ -13,7 +15,7 @@ export default function ModelLoader() {
           <Loader2 className="w-6 h-6 text-ice absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
         </div>
         <p className="text-slate-100 font-bold text-xs tracking-wide uppercase font-heading">
-          Loading 3D Anatomy...
+          Streaming 3D Anatomy...
         </p>
         <div className="w-40 bg-slate-900/90 rounded-full h-1.5 mt-3 overflow-hidden border border-slate-700/80">
           <div
@@ -21,7 +23,9 @@ export default function ModelLoader() {
             style={{ width: `${Math.round(progress)}%` }}
           />
         </div>
-        <span className="text-[11px] text-ice-soft/90 mt-1.5 font-heading font-semibold">{Math.round(progress)}% Loaded</span>
+        <span className="text-[11px] text-ice-soft/90 mt-1.5 font-heading font-semibold">
+          {total > 0 ? `${loaded} / ${total} layers ready (${Math.round(progress)}%)` : `${Math.round(progress)}% Loaded`}
+        </span>
       </div>
     </Html>
   );

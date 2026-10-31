@@ -12,6 +12,7 @@
     "verify:explore-skeleton": "node scripts/skeleton/verify-explore-skeleton.mjs",
     "build:explore-body": "node scripts/skeleton/build-explore-body.mjs",
     "verify:explore-body": "node scripts/skeleton/verify-explore-body.mjs",
+    "optimize:models": "node scripts/optimize-models.mjs",
     "generate:model": "node scripts/generate-model.js",
     "lint": "oxlint",
     "preview": "vite preview"

@@ -4,7 +4,8 @@ import { useFrame } from '@react-three/fiber';
 import { createDiamondMaterial } from './DiamondMaterial.js';
 
 export default function SpineModel({ sceneStateRef, tier, activeCardIndex = 0, visible = true }) {
-  const { scene } = useGLTF('/models/spine-anatomical.glb');
+  const modelPath = tier === 'low' ? '/models/spine-anatomical-lite.glb' : '/models/spine-anatomical.glb';
+  const { scene } = useGLTF(modelPath, '/draco/');
   const groupRef = useRef();
 
   // Independent instances so highlighting and opacity stay scoped to this rig
@@ -114,4 +115,5 @@ export default function SpineModel({ sceneStateRef, tier, activeCardIndex = 0, v
   );
 }
 
-useGLTF.preload('/models/spine-anatomical.glb');
+useGLTF.preload('/models/spine-anatomical.glb', '/draco/');
+useGLTF.preload('/models/spine-anatomical-lite.glb', '/draco/');

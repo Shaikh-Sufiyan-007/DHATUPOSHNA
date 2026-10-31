@@ -30,11 +30,20 @@ export default function NotFound() {
       <div className="flex flex-wrap items-center justify-center gap-3 font-heading">
         <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
           <Link
-            to="/"
+            to="/home"
             className="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition flex items-center gap-2"
           >
             <Home className="w-4 h-4" />
-            <span>Home Page</span>
+            <span>Go to Dashboard</span>
+          </Link>
+        </motion.div>
+
+        <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
+          <Link
+            to="/"
+            className="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-2"
+          >
+            <span>Landing Page</span>
           </Link>
         </motion.div>
 

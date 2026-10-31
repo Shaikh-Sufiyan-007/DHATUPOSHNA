@@ -5,7 +5,7 @@ import { createDiamondMaterial } from './DiamondMaterial.js';
 
 export default function SkeletonModel({ sceneStateRef, tier, visible = false }) {
   const modelPath = tier === 'low' ? '/models/skeleton-full-lite.glb' : '/models/skeleton-full.glb';
-  const { scene } = useGLTF(modelPath);
+  const { scene } = useGLTF(modelPath, '/draco/');
   const groupRef = useRef();
 
   // Independent instances so each tissue can fade on its own opacity channel
@@ -75,4 +75,5 @@ export default function SkeletonModel({ sceneStateRef, tier, visible = false }) 
   );
 }
 
-useGLTF.preload('/models/skeleton-full.glb');
+useGLTF.preload('/models/skeleton-full.glb', '/draco/');
+useGLTF.preload('/models/skeleton-full-lite.glb', '/draco/');

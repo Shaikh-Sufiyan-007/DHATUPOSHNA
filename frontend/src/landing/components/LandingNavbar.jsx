@@ -91,11 +91,6 @@ export default function LandingNavbar({ currentStage = 1 }) {
                 </p>
               </div>
             </div>
-
-
-            <span className="dp-serif text-lg sm:text-xl font-medium tracking-[0.18em] text-[#BFC8D6] group-hover:text-[#F2F6FB] transition-colors">
-              DHATUPOSHNA
-            </span>
           </a>
 
           {/* Center (Desktop): In-page Links matching reference */}

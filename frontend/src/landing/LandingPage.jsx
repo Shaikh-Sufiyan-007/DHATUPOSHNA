@@ -1,7 +1,9 @@
-import React, { useRef, useEffect, useCallback, memo } from 'react';
+import React, { useRef, useEffect, useState, useCallback, memo } from 'react';
+import { useGLTF } from '@react-three/drei';
 import LandingNavbar from './components/LandingNavbar.jsx';
 import AnatomyCanvas from './components/AnatomyCanvas.jsx';
 import WebGLFallback from './components/WebGLFallback.jsx';
+import LandingPreloader from './components/LandingPreloader.jsx';
 import HeroSection from './components/HeroSection.jsx';
 import SpineFeatureCards from './components/SpineFeatureCards.jsx';
 import SkeletonRevealSection from './components/SkeletonRevealSection.jsx';
@@ -25,9 +27,10 @@ export default function LandingPage() {
   const trackRef = useRef(null);
   const tier = useQualityTier();
   const webglSupported = useWebGLSupport();
+  const [isSceneReady, setIsSceneReady] = useState(false);
 
   const { sceneStateRef, activeCardIndex, currentStage, scrollProgress, reducedMotion } =
-    useScrollScene({ trackRef });
+    useScrollScene({ trackRef, isReady: isSceneReady });
 
   useEffect(() => {
     const prevTitle = document.title;
@@ -37,6 +40,28 @@ export default function LandingPage() {
     };
   }, []);
 
+  // Step 4: Idle prefetch for in-app Explore3D assets after landing page is ready
+  useEffect(() => {
+    if (!isSceneReady) return;
+
+    const prefetchExplore = () => {
+      fetch('/models/explore-regions.json').catch(() => {});
+      const isMobile = tier === 'low';
+      const shellPath = `/models/explore-body-shell${isMobile ? '-lite' : ''}.glb`;
+      const skelPath = `/models/explore-skeleton${isMobile ? '-lite' : ''}.glb`;
+      const rasaPath = `/models/explore-body-rasa${isMobile ? '-lite' : ''}.glb`;
+      useGLTF.preload(shellPath, '/draco/');
+      useGLTF.preload(skelPath, '/draco/');
+      useGLTF.preload(rasaPath, '/draco/');
+    };
+
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      window.requestIdleCallback(prefetchExplore, { timeout: 3000 });
+    } else {
+      setTimeout(prefetchExplore, 1800);
+    }
+  }, [isSceneReady, tier]);
+
   const handleScrollToSpine = useCallback(() => {
     const spineEl = document.getElementById('section-spine');
     if (spineEl) {
@@ -44,8 +69,15 @@ export default function LandingPage() {
     }
   }, []);
 
+  const handleSceneReady = useCallback(() => {
+    setIsSceneReady(true);
+  }, []);
+
   return (
     <div ref={trackRef} className="dp-landing">
+      {/* Branded Loading Experience Gate */}
+      <LandingPreloader onReady={handleSceneReady} />
+
       {/* Landing Fixed Navbar */}
       <LandingNavbar currentStage={currentStage} />
 

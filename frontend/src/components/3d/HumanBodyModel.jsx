@@ -323,61 +323,61 @@ function LayerGroup({
 function ShellLayer(props) {
   const tier = props.tier;
   const path = `/models/${LAYER_FILES.shell[tier === 'low' ? 'lite' : 'high']}`;
-  const { scene } = useGLTF(path);
+  const { scene } = useGLTF(path, '/draco/');
   return <LayerGroup {...props} scene={scene} layerName="shell" />;
 }
 
 function MedaLayer(props) {
   const tier = props.tier;
   const path = `/models/${LAYER_FILES.meda[tier === 'low' ? 'lite' : 'high']}`;
-  const { scene } = useGLTF(path);
+  const { scene } = useGLTF(path, '/draco/');
   return <LayerGroup {...props} scene={scene} layerName="meda" />;
 }
 
 function MamsaLayer(props) {
   const tier = props.tier;
   const path = `/models/${LAYER_FILES.mamsa[tier === 'low' ? 'lite' : 'high']}`;
-  const { scene } = useGLTF(path);
+  const { scene } = useGLTF(path, '/draco/');
   return <LayerGroup {...props} scene={scene} layerName="mamsa" />;
 }
 
 function RaktaLayer(props) {
   const tier = props.tier;
   const path = `/models/${LAYER_FILES.rakta[tier === 'low' ? 'lite' : 'high']}`;
-  const { scene } = useGLTF(path);
+  const { scene } = useGLTF(path, '/draco/');
   return <LayerGroup {...props} scene={scene} layerName="rakta" />;
 }
 
 function RasaLayer(props) {
   const tier = props.tier;
   const path = `/models/${LAYER_FILES.rasa[tier === 'low' ? 'lite' : 'high']}`;
-  const { scene } = useGLTF(path);
+  const { scene } = useGLTF(path, '/draco/');
   return <LayerGroup {...props} scene={scene} layerName="rasa" />;
 }
 
 function MajjaLayer(props) {
   const tier = props.tier;
   const path = `/models/${LAYER_FILES.majja[tier === 'low' ? 'lite' : 'high']}`;
-  const { scene } = useGLTF(path);
+  const { scene } = useGLTF(path, '/draco/');
   return <LayerGroup {...props} scene={scene} layerName="majja" />;
 }
 
 function ShukraLayer(props) {
   const tier = props.tier;
   const path = `/models/${LAYER_FILES.shukra[tier === 'low' ? 'lite' : 'high']}`;
-  const { scene } = useGLTF(path);
+  const { scene } = useGLTF(path, '/draco/');
   return <LayerGroup {...props} scene={scene} layerName="shukra" />;
 }
 
 function AsthiLayer(props) {
   const tier = props.tier;
   const path = `/models/${LAYER_FILES.asthi[tier === 'low' ? 'lite' : 'high']}`;
-  const { scene } = useGLTF(path);
+  const { scene } = useGLTF(path, '/draco/');
   return <LayerGroup {...props} scene={scene} layerName="asthi" />;
 }
 
 function FallbackAsthiLayer(props) {
-  const { scene } = useGLTF('/models/human-body.glb');
+  const { scene } = useGLTF('/models/human-body.glb', '/draco/');
   return <LayerGroup {...props} scene={scene} layerName="asthi" />;
 }
 
@@ -512,8 +512,8 @@ export default function HumanBodyModel({ selectedDhatu, onSelectDhatu }) {
 }
 
 // Preload priority assets
-useGLTF.preload('/models/explore-body-shell.glb');
-useGLTF.preload('/models/explore-body-shell-lite.glb');
-useGLTF.preload('/models/explore-skeleton.glb');
-useGLTF.preload('/models/explore-skeleton-lite.glb');
-useGLTF.preload('/models/human-body.glb');
+useGLTF.preload('/models/explore-body-shell.glb', '/draco/');
+useGLTF.preload('/models/explore-body-shell-lite.glb', '/draco/');
+useGLTF.preload('/models/explore-skeleton.glb', '/draco/');
+useGLTF.preload('/models/explore-skeleton-lite.glb', '/draco/');
+useGLTF.preload('/models/human-body.glb', '/draco/');

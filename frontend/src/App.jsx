@@ -1,12 +1,12 @@
 import React, { useEffect, Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import Navbar from './components/layout/Navbar.jsx';
 import Footer from './components/layout/Footer.jsx';
 import LoadingState from './components/common/LoadingState.jsx';
 import ErrorBoundary from './components/common/ErrorBoundary.jsx';
 
-import { AuthProvider, useAuth } from './context/AuthContext.jsx';
+import { AuthProvider } from './context/AuthContext.jsx';
 import ProtectedRoute from './components/common/ProtectedRoute.jsx';
 import PublicRoute from './components/common/PublicRoute.jsx';
 
@@ -46,27 +46,6 @@ function ScrollToTop() {
   return null;
 }
 
-// An authenticated visitor never sees the landing page. The gate resolves before
-// LandingPage is rendered, so the lazy landing chunk is not even fetched while the
-// session is still being verified - no landing flash on refresh or reopen.
-function LandingGate({ children }) {
-  const { isAuthenticated, loading } = useAuth();
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[#0A0F16] flex items-center justify-center">
-        <LoadingState message="Verifying session..." subtext="Checking authentication status" />
-      </div>
-    );
-  }
-
-  if (isAuthenticated) {
-    return <Navigate to="/home" replace />;
-  }
-
-  return children;
-}
-
 function AnimatedRoutes() {
   const location = useLocation();
 
@@ -81,15 +60,8 @@ function AnimatedRoutes() {
         className="w-full"
       >
         <Routes location={location}>
-          {/* Public Landing Page Gateway at / (authenticated sessions skip straight to /home) */}
-          <Route
-            path="/"
-            element={
-              <LandingGate>
-                <LandingPage />
-              </LandingGate>
-            }
-          />
+          {/* Public Landing Page Gateway: ALWAYS rendered at / for all visitors */}
+          <Route path="/" element={<LandingPage />} />
 
           <Route
             path="/login"
@@ -109,7 +81,7 @@ function AnimatedRoutes() {
           />
 
           <Route element={<ProtectedRoute />}>
-            {/* Existing Home Page moved to /home intact */}
+            {/* In-app Dashboard / Gateway moved to /home */}
             <Route path="/home" element={<Home />} />
             <Route path="/explore" element={<Explore3D />} />
 
