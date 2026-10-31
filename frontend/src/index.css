@@ -1,10 +1,26 @@
 @import "tailwindcss";
 
+@theme {
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'Space Grotesk', sans-serif;
+
+  /* Ice-blue accent scale replacing the old amber accents.
+     --color-ice-deep is the darker shade kept for weak-contrast cases. */
+  --color-ice: #6FB3E0;
+  --color-ice-soft: #9DC8EC;
+  --color-ice-bright: #F2F6FB;
+  --color-ice-deep: #3F8CBF;
+  --color-silver: #BFC8D6;
+  --color-silver-deep: #A9B2BF;
+}
+
 @layer base {
   :root {
-    --font-heading: 'Outfit', sans-serif;
-    --font-sans: 'Plus Jakarta Sans', sans-serif;
-    --font-classical: 'Cinzel', serif;
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-sans: 'Inter', sans-serif;
+    --font-classical: 'Space Grotesk', sans-serif;
   }
 
   html {
@@ -58,7 +74,7 @@
   }
 
   .font-classical {
-    font-family: var(--font-classical);
+    font-family: var(--font-heading);
     letter-spacing: 0.01em;
   }
 }
@@ -90,7 +106,7 @@
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 20px 45px -12px rgba(0, 0, 0, 0.65), 0 0 25px -5px rgba(245, 158, 11, 0.05), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 45px -12px rgba(0, 0, 0, 0.65), 0 0 25px -5px rgba(111, 179, 224, 0.05), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
 }
 
 .glass-card {
@@ -108,6 +124,13 @@
   border-color: rgba(245, 158, 11, 0.35);
   transform: translateY(-4px) translateZ(8px);
   box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6), 0 0 20px -4px rgba(245, 158, 11, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+}
+
+/* .glass-card's amber hover is still consumed by the Dhatus cards, so the rest of the
+   site opts into this higher-specificity ice variant instead of editing the shared token. */
+.glass-card.glass-card-ice:hover {
+  border-color: rgba(111, 179, 224, 0.35);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6), 0 0 20px -4px rgba(111, 179, 224, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
 }
 
 .spatial-dock {
@@ -171,11 +194,11 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #f59e0b;
+  background: var(--color-ice);
 }
 
-.glow-amber {
-  text-shadow: 0 0 25px rgba(245, 158, 11, 0.45);
+.glow-ice {
+  text-shadow: 0 0 25px rgba(111, 179, 224, 0.45);
 }
 
 .glow-cyan {
@@ -183,11 +206,10 @@
 }
 
 .glow-subtle {
-  box-shadow: 0 0 20px -3px var(--glow-color, rgba(245, 158, 11, 0.25));
+  box-shadow: 0 0 20px -3px var(--glow-color, rgba(111, 179, 224, 0.25));
 }
 
 @keyframes pulseSubtle {
-
   0%,
   100% {
     opacity: 1;
@@ -201,7 +223,6 @@
 }
 
 @keyframes floatGentle {
-
   0%,
   100% {
     transform: translateY(0px);
@@ -237,7 +258,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-
   *,
   ::before,
   ::after {

@@ -26,12 +26,12 @@ export default function BodyControls({
       </div>
 
       {selectedMapping && (
-        <div className="spatial-floating-hud px-3 py-1.5 rounded-full pointer-events-auto flex items-center gap-2 border border-amber-500/40 shadow-xl animate-spatial-in">
+        <div className="spatial-floating-hud px-3 py-1.5 rounded-full pointer-events-auto flex items-center gap-2 border border-ice/30 shadow-xl animate-spatial-in">
           <span
             className="w-2.5 h-2.5 rounded-full animate-ping shrink-0"
             style={{ backgroundColor: selectedMapping.uiColor }}
           />
-          <span className="text-xs font-bold text-slate-100 truncate max-w-[160px] sm:max-w-none">
+          <span className="text-xs font-bold text-slate-100 font-heading truncate max-w-[160px] sm:max-w-none">
             {selectedMapping.name} ({selectedMapping.sanskritName})
           </span>
           <button
@@ -48,8 +48,8 @@ export default function BodyControls({
       <div className="flex items-center gap-1 spatial-floating-hud p-1 sm:p-1.5 rounded-2xl pointer-events-auto border border-slate-700/70 shadow-2xl">
         <button
           onClick={onToggleAutoRotate}
-          className={`p-2 sm:p-2.5 rounded-xl text-xs font-medium transition duration-200 flex items-center justify-center cursor-pointer min-h-[38px] min-w-[38px] ${autoRotate
-              ? 'bg-amber-500/25 text-amber-300 border border-amber-500/50 shadow-md shadow-amber-500/20'
+          className={`p-2 sm:p-2.5 rounded-xl text-xs font-medium transition duration-200 flex items-center justify-center cursor-pointer min-h-[38px] min-w-[38px] active:scale-95 ${autoRotate
+              ? 'bg-ice/25 text-ice-soft border border-ice/50 shadow-md shadow-ice/20'
               : 'text-slate-300 hover:text-white hover:bg-slate-800/80'
             }`}
           title={autoRotate ? 'Stop auto-rotation' : 'Start auto-rotation'}
@@ -60,7 +60,7 @@ export default function BodyControls({
 
         <button
           onClick={onZoomIn}
-          className="p-2 sm:p-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 transition duration-200 cursor-pointer min-h-[38px] min-w-[38px] flex items-center justify-center"
+          className="p-2 sm:p-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 transition duration-200 cursor-pointer min-h-[38px] min-w-[38px] flex items-center justify-center active:scale-95"
           title="Zoom In"
           aria-label="Zoom in on 3D body"
         >
@@ -69,7 +69,7 @@ export default function BodyControls({
 
         <button
           onClick={onZoomOut}
-          className="p-2 sm:p-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 transition duration-200 cursor-pointer min-h-[38px] min-w-[38px] flex items-center justify-center"
+          className="p-2 sm:p-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 transition duration-200 cursor-pointer min-h-[38px] min-w-[38px] flex items-center justify-center active:scale-95"
           title="Zoom Out"
           aria-label="Zoom out of 3D body"
         >
@@ -80,7 +80,7 @@ export default function BodyControls({
 
         <button
           onClick={onResetView}
-          className="px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl text-slate-200 hover:text-white hover:bg-slate-800/80 transition duration-200 flex items-center gap-1.5 cursor-pointer text-xs font-semibold min-h-[38px]"
+          className="px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl text-slate-200 hover:text-white hover:bg-slate-800/80 transition duration-200 flex items-center gap-1.5 cursor-pointer text-xs font-semibold min-h-[38px] active:scale-95 font-heading"
           title="Reset Camera View"
           aria-label="Reset 3D camera"
         >

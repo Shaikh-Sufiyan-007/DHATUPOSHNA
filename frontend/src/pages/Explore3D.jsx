@@ -49,7 +49,7 @@ export default function Explore3D() {
                 Sapta Dhatu 3D Body Explorer
               </h1>
             </div>
-            <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5 truncate">
+            <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5 truncate font-body">
               Direct anatomical interaction linked with authentic Ayurvedic knowledge bases.
             </p>
           </div>
@@ -58,11 +58,11 @@ export default function Explore3D() {
         <div className="flex items-center gap-2 w-full sm:w-auto">
           <button
             onClick={() => setFullscreen(!fullscreen)}
-            className="w-full sm:w-auto px-4 py-2.5 rounded-2xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700/80 transition-all duration-200 text-xs font-semibold flex items-center justify-center gap-2 shadow-sm cursor-pointer hover:-translate-y-0.5 min-h-[44px] touch-target"
+            className="w-full sm:w-auto px-4 py-2.5 rounded-2xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700/80 transition-all duration-200 text-xs font-semibold flex items-center justify-center gap-2 shadow-sm cursor-pointer hover:-translate-y-0.5 min-h-[44px] touch-target font-heading"
           >
             {fullscreen ? (
               <>
-                <Minimize2 className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <Minimize2 className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
                 <span>Exit Fullscreen</span>
               </>
             ) : (

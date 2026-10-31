@@ -25,18 +25,18 @@ class CanvasErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return (
         <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-slate-900/80 rounded-2xl border border-rose-500/20">
-          <AlertCircle className="w-10 h-10 text-amber-400 mb-3" />
-          <h3 className="text-base text-xl font-semibold text-slate-100 mb-1">
+          <AlertCircle className="w-10 h-10 text-ice mb-3" />
+          <h3 className="text-base text-xl font-semibold text-slate-100 font-heading mb-1">
             Interactive 3D visualization is unavailable on this device.
           </h3>
-          <p className="text-slate-400 text-sm max-w-md mb-4 leading-relaxed">
+          <p className="text-slate-400 text-sm max-w-md mb-4 leading-relaxed font-body">
             Your browser or device encountered an issue rendering WebGL. You can still explore all seven Ayurvedic Dhatus and their classical attributes using the accessible selector below.
           </p>
           <button
             onClick={() => this.setState({ hasError: false, error: null })}
-            className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm text-slate-200 border border-slate-700 transition flex items-center gap-1.5"
+            className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-sm text-slate-200 border border-slate-700 transition flex items-center gap-1.5 cursor-pointer min-h-[44px]"
           >
-            <RefreshCw className="w-4 h-4" />
+            <RefreshCw className="w-4 h-4 text-ice" />
             Try Reloading 3D Scene
           </button>
         </div>
@@ -54,7 +54,7 @@ function CameraRig({ selectedDhatu, controlsRef }) {
       controlsRef.current.target.set(...mapping.cameraTarget);
       controlsRef.current.update();
     } else {
-      controlsRef.current.target.set(0, 0.85, 0);
+      controlsRef.current.target.set(0, 0.8688, 0.0241);
       controlsRef.current.update();
     }
   }, [selectedDhatu, controlsRef]);
@@ -118,7 +118,7 @@ export default function HumanBodyViewer({
   const handleResetView = () => {
     if (controlsRef.current) {
       controlsRef.current.reset();
-      controlsRef.current.target.set(0, 0.85, 0);
+      controlsRef.current.target.set(0, 0.8688, 0.0241);
       controlsRef.current.update();
     }
   };
@@ -143,11 +143,11 @@ export default function HumanBodyViewer({
         className="w-full flex flex-col items-center justify-center p-6 text-center glass-panel rounded-3xl border-slate-800"
         style={{ height }}
       >
-        <AlertCircle className="w-10 h-10 text-amber-400 mb-3" />
-        <h3 className="text-base font-semibold text-slate-100 mb-1">
+        <AlertCircle className="w-10 h-10 text-ice mb-3" />
+        <h3 className="text-base font-semibold text-slate-100 font-heading mb-1">
           Interactive 3D visualization is unavailable on this device.
         </h3>
-        <p className="text-slate-400 text-xs max-w-md">
+        <p className="text-slate-400 text-xs max-w-md font-body">
           WebGL hardware acceleration is not supported in this environment. Please utilize the Dhatu selection tabs to explore complete Ayurvedic knowledge.
         </p>
       </div>
@@ -163,21 +163,21 @@ export default function HumanBodyViewer({
       <div className="absolute top-2.5 sm:top-3 inset-x-2.5 sm:inset-x-4 flex items-center justify-between gap-2 pointer-events-none z-10">
         <div className="spatial-floating-hud px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full pointer-events-auto flex items-center gap-1.5 sm:gap-2 border border-slate-700/70 shadow-lg">
           <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-cyan-400 animate-ping" />
-          <span className="text-[10px] sm:text-[11px] font-mono tracking-wider text-slate-300 uppercase font-semibold">
+          <span className="text-[10px] sm:text-[11px] font-heading tracking-wider text-slate-300 uppercase font-semibold">
             <span className="hidden xs:inline">Spatial Viewport • </span>3D Anatomy
           </span>
         </div>
 
         {selectedMapping && (
-          <div className="spatial-floating-hud px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full pointer-events-auto flex items-center gap-1.5 sm:gap-2 border border-amber-500/30 shadow-xl animate-spatial-in">
+          <div className="spatial-floating-hud px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full pointer-events-auto flex items-center gap-1.5 sm:gap-2 border border-ice/30 shadow-xl animate-spatial-in">
             <span
               className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full shadow-sm shrink-0"
               style={{ backgroundColor: selectedMapping.uiColor }}
             />
-            <span className="text-[11px] sm:text-xs font-bold text-slate-100">
+            <span className="text-[11px] sm:text-xs font-bold text-slate-100 font-heading">
               {selectedMapping.name}
             </span>
-            <span className="text-[11px] sm:text-xs font-classical text-amber-300 hidden sm:inline">
+            <span className="text-[11px] sm:text-xs font-heading text-ice-soft hidden sm:inline">
               ({selectedMapping.sanskritName})
             </span>
           </div>
@@ -186,7 +186,7 @@ export default function HumanBodyViewer({
 
       <CanvasErrorBoundary>
         <Canvas
-          camera={{ position: [0, 0.85, 2.7], fov: 40 }}
+          camera={{ position: [0, 0.8688, 2.5], fov: 40, near: 0.02, far: 20 }}
           dpr={[1, 2]}
           gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         >
@@ -205,7 +205,7 @@ export default function HumanBodyViewer({
             intensity={0.65}
             color={selectedMapping?.uiColor || '#38bdf8'}
           />
-          <pointLight position={[0, 0.2, 1.5]} intensity={0.4} color="#fef08a" />
+          <pointLight position={[0, 0.2, 1.5]} intensity={0.4} color="#9DC8EC" />
           <pointLight position={[0, 1.7, -1.8]} intensity={0.55} color="#38bdf8" />
 
           <Suspense fallback={<ModelLoader />}>
@@ -229,10 +229,10 @@ export default function HumanBodyViewer({
 
           <OrbitControls
             ref={controlsRef}
-            target={[0, 0.85, 0]}
+            target={[0, 0.8688, 0.0241]}
             enableDamping
             dampingFactor={0.06}
-            minDistance={0.8}
+            minDistance={0.35}
             maxDistance={4.2}
             maxPolarAngle={Math.PI / 1.75}
             minPolarAngle={Math.PI / 6}
